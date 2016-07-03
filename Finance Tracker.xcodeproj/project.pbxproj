@@ -12,6 +12,8 @@
 		70C481E01D29A21D00410731 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 70C481DF1D29A21D00410731 /* Assets.xcassets */; };
 		70C481E31D29A21D00410731 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 70C481E11D29A21D00410731 /* LaunchScreen.storyboard */; };
 		70C481EC1D29ABB600410731 /* CustomTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70C481EB1D29ABB600410731 /* CustomTabBarController.swift */; };
+		70C481EE1D29AC8600410731 /* StatsVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70C481ED1D29AC8600410731 /* StatsVC.swift */; };
+		70C481F01D29ACC600410731 /* AddItemVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70C481EF1D29ACC600410731 /* AddItemVC.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -22,6 +24,8 @@
 		70C481E21D29A21D00410731 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		70C481E41D29A21D00410731 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		70C481EB1D29ABB600410731 /* CustomTabBarController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomTabBarController.swift; sourceTree = "<group>"; };
+		70C481ED1D29AC8600410731 /* StatsVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StatsVC.swift; sourceTree = "<group>"; };
+		70C481EF1D29ACC600410731 /* AddItemVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddItemVC.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -68,6 +72,8 @@
 			isa = PBXGroup;
 			children = (
 				70C481EB1D29ABB600410731 /* CustomTabBarController.swift */,
+				70C481ED1D29AC8600410731 /* StatsVC.swift */,
+				70C481EF1D29ACC600410731 /* AddItemVC.swift */,
 			);
 			name = Controller;
 			sourceTree = "<group>";
@@ -142,6 +148,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				70C481F01D29ACC600410731 /* AddItemVC.swift in Sources */,
+				70C481EE1D29AC8600410731 /* StatsVC.swift in Sources */,
 				70C481DB1D29A21D00410731 /* ViewController.swift in Sources */,
 				70C481D91D29A21D00410731 /* AppDelegate.swift in Sources */,
 				70C481EC1D29ABB600410731 /* CustomTabBarController.swift in Sources */,
