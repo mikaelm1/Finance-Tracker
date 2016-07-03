@@ -9,19 +9,19 @@
 /* Begin PBXBuildFile section */
 		70C481D91D29A21D00410731 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70C481D81D29A21D00410731 /* AppDelegate.swift */; };
 		70C481DB1D29A21D00410731 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70C481DA1D29A21D00410731 /* ViewController.swift */; };
-		70C481DE1D29A21D00410731 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 70C481DC1D29A21D00410731 /* Main.storyboard */; };
 		70C481E01D29A21D00410731 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 70C481DF1D29A21D00410731 /* Assets.xcassets */; };
 		70C481E31D29A21D00410731 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 70C481E11D29A21D00410731 /* LaunchScreen.storyboard */; };
+		70C481EC1D29ABB600410731 /* CustomTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70C481EB1D29ABB600410731 /* CustomTabBarController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		70C481D51D29A21D00410731 /* Finance Tracker.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Finance Tracker.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		70C481D81D29A21D00410731 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		70C481DA1D29A21D00410731 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
-		70C481DD1D29A21D00410731 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		70C481DF1D29A21D00410731 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		70C481E21D29A21D00410731 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		70C481E41D29A21D00410731 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		70C481EB1D29ABB600410731 /* CustomTabBarController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomTabBarController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -54,14 +54,22 @@
 		70C481D71D29A21D00410731 /* Finance Tracker */ = {
 			isa = PBXGroup;
 			children = (
+				70C481EA1D29AB9000410731 /* Controller */,
 				70C481D81D29A21D00410731 /* AppDelegate.swift */,
 				70C481DA1D29A21D00410731 /* ViewController.swift */,
-				70C481DC1D29A21D00410731 /* Main.storyboard */,
 				70C481DF1D29A21D00410731 /* Assets.xcassets */,
 				70C481E11D29A21D00410731 /* LaunchScreen.storyboard */,
 				70C481E41D29A21D00410731 /* Info.plist */,
 			);
 			path = "Finance Tracker";
+			sourceTree = "<group>";
+		};
+		70C481EA1D29AB9000410731 /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				70C481EB1D29ABB600410731 /* CustomTabBarController.swift */,
+			);
+			name = Controller;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -124,7 +132,6 @@
 			files = (
 				70C481E31D29A21D00410731 /* LaunchScreen.storyboard in Resources */,
 				70C481E01D29A21D00410731 /* Assets.xcassets in Resources */,
-				70C481DE1D29A21D00410731 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -137,20 +144,13 @@
 			files = (
 				70C481DB1D29A21D00410731 /* ViewController.swift in Sources */,
 				70C481D91D29A21D00410731 /* AppDelegate.swift in Sources */,
+				70C481EC1D29ABB600410731 /* CustomTabBarController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXVariantGroup section */
-		70C481DC1D29A21D00410731 /* Main.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				70C481DD1D29A21D00410731 /* Base */,
-			);
-			name = Main.storyboard;
-			sourceTree = "<group>";
-		};
 		70C481E11D29A21D00410731 /* LaunchScreen.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
