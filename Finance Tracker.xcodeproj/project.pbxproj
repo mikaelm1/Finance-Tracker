@@ -8,24 +8,26 @@
 
 /* Begin PBXBuildFile section */
 		70C481D91D29A21D00410731 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70C481D81D29A21D00410731 /* AppDelegate.swift */; };
-		70C481DB1D29A21D00410731 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70C481DA1D29A21D00410731 /* ViewController.swift */; };
 		70C481E01D29A21D00410731 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 70C481DF1D29A21D00410731 /* Assets.xcassets */; };
 		70C481E31D29A21D00410731 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 70C481E11D29A21D00410731 /* LaunchScreen.storyboard */; };
 		70C481EC1D29ABB600410731 /* CustomTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70C481EB1D29ABB600410731 /* CustomTabBarController.swift */; };
 		70C481EE1D29AC8600410731 /* StatsVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70C481ED1D29AC8600410731 /* StatsVC.swift */; };
 		70C481F01D29ACC600410731 /* AddItemVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70C481EF1D29ACC600410731 /* AddItemVC.swift */; };
+		BB7832F4C710F1763CB60863 /* Pods_Finance_Tracker.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AFF9579E3730F992ABFA2E33 /* Pods_Finance_Tracker.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		5A7C1BA5AED7DA711942B643 /* Pods-Finance Tracker.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Finance Tracker.release.xcconfig"; path = "Pods/Target Support Files/Pods-Finance Tracker/Pods-Finance Tracker.release.xcconfig"; sourceTree = "<group>"; };
 		70C481D51D29A21D00410731 /* Finance Tracker.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Finance Tracker.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		70C481D81D29A21D00410731 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		70C481DA1D29A21D00410731 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		70C481DF1D29A21D00410731 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		70C481E21D29A21D00410731 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		70C481E41D29A21D00410731 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		70C481EB1D29ABB600410731 /* CustomTabBarController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomTabBarController.swift; sourceTree = "<group>"; };
 		70C481ED1D29AC8600410731 /* StatsVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StatsVC.swift; sourceTree = "<group>"; };
 		70C481EF1D29ACC600410731 /* AddItemVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddItemVC.swift; sourceTree = "<group>"; };
+		ACBC95B6324B6BD18F87BD3F /* Pods-Finance Tracker.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Finance Tracker.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Finance Tracker/Pods-Finance Tracker.debug.xcconfig"; sourceTree = "<group>"; };
+		AFF9579E3730F992ABFA2E33 /* Pods_Finance_Tracker.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Finance_Tracker.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -33,6 +35,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				BB7832F4C710F1763CB60863 /* Pods_Finance_Tracker.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -44,6 +47,8 @@
 			children = (
 				70C481D71D29A21D00410731 /* Finance Tracker */,
 				70C481D61D29A21D00410731 /* Products */,
+				81B9353512A815DFC41169BA /* Pods */,
+				A91F48678D80AA7D8C309A20 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -60,7 +65,6 @@
 			children = (
 				70C481EA1D29AB9000410731 /* Controller */,
 				70C481D81D29A21D00410731 /* AppDelegate.swift */,
-				70C481DA1D29A21D00410731 /* ViewController.swift */,
 				70C481DF1D29A21D00410731 /* Assets.xcassets */,
 				70C481E11D29A21D00410731 /* LaunchScreen.storyboard */,
 				70C481E41D29A21D00410731 /* Info.plist */,
@@ -78,6 +82,23 @@
 			name = Controller;
 			sourceTree = "<group>";
 		};
+		81B9353512A815DFC41169BA /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				ACBC95B6324B6BD18F87BD3F /* Pods-Finance Tracker.debug.xcconfig */,
+				5A7C1BA5AED7DA711942B643 /* Pods-Finance Tracker.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
+		A91F48678D80AA7D8C309A20 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				AFF9579E3730F992ABFA2E33 /* Pods_Finance_Tracker.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -85,9 +106,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 70C481E71D29A21D00410731 /* Build configuration list for PBXNativeTarget "Finance Tracker" */;
 			buildPhases = (
+				2198FDC6ED9B8A2763C8929E /* [CP] Check Pods Manifest.lock */,
 				70C481D11D29A21D00410731 /* Sources */,
 				70C481D21D29A21D00410731 /* Frameworks */,
 				70C481D31D29A21D00410731 /* Resources */,
+				FC9A951B6684E016A0CC4EFA /* [CP] Embed Pods Frameworks */,
+				35E1087DE5D1E9484B03B305 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -143,6 +167,54 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
+/* Begin PBXShellScriptBuildPhase section */
+		2198FDC6ED9B8A2763C8929E /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+		35E1087DE5D1E9484B03B305 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Finance Tracker/Pods-Finance Tracker-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		FC9A951B6684E016A0CC4EFA /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Finance Tracker/Pods-Finance Tracker-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
 		70C481D11D29A21D00410731 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
@@ -150,7 +222,6 @@
 			files = (
 				70C481F01D29ACC600410731 /* AddItemVC.swift in Sources */,
 				70C481EE1D29AC8600410731 /* StatsVC.swift in Sources */,
-				70C481DB1D29A21D00410731 /* ViewController.swift in Sources */,
 				70C481D91D29A21D00410731 /* AppDelegate.swift in Sources */,
 				70C481EC1D29ABB600410731 /* CustomTabBarController.swift in Sources */,
 			);
@@ -255,6 +326,7 @@
 		};
 		70C481E81D29A21D00410731 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = ACBC95B6324B6BD18F87BD3F /* Pods-Finance Tracker.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				INFOPLIST_FILE = "Finance Tracker/Info.plist";
@@ -266,6 +338,7 @@
 		};
 		70C481E91D29A21D00410731 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 5A7C1BA5AED7DA711942B643 /* Pods-Finance Tracker.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				INFOPLIST_FILE = "Finance Tracker/Info.plist";
@@ -294,6 +367,7 @@
 				70C481E91D29A21D00410731 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

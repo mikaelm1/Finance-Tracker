@@ -1,0 +1,30 @@
+{
+  "DVTSourceControlWorkspaceBlueprintPrimaryRemoteRepositoryKey" : "CE267EA4E5D92DC986D5C8AE31213F64FE87E685",
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyRepositoryLocationsKey" : {
+
+  },
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyStatesKey" : {
+    "B85AD45A9126BD3B961EC6F0E2DE82771CD1A1DE" : 0,
+    "CE267EA4E5D92DC986D5C8AE31213F64FE87E685" : 0
+  },
+  "DVTSourceControlWorkspaceBlueprintIdentifierKey" : "56342B4B-F986-4CCA-A7A6-C9C1D05731E1",
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyPathsKey" : {
+    "B85AD45A9126BD3B961EC6F0E2DE82771CD1A1DE" : "",
+    "CE267EA4E5D92DC986D5C8AE31213F64FE87E685" : "Finance%20Tracker\/"
+  },
+  "DVTSourceControlWorkspaceBlueprintNameKey" : "Finance Tracker",
+  "DVTSourceControlWorkspaceBlueprintVersion" : 204,
+  "DVTSourceControlWorkspaceBlueprintRelativePathToProjectKey" : "Finance Tracker.xcworkspace",
+  "DVTSourceControlWorkspaceBlueprintRemoteRepositoriesKey" : [
+    {
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "https:\/\/github.com\/mikaelm1\/mikaelm1.github.io.git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "B85AD45A9126BD3B961EC6F0E2DE82771CD1A1DE"
+    },
+    {
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "github.com:mikaelm1\/Finance-Tracker.git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "CE267EA4E5D92DC986D5C8AE31213F64FE87E685"
+    }
+  ]
+}

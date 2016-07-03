@@ -7,13 +7,15 @@
 //
 
 import UIKit
+import RealmSwift 
 
 class StatsVC: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        view.backgroundColor = UIColor.redColor()
+        view.backgroundColor = UIColor.whiteColor()
     }
+    
 
 }
