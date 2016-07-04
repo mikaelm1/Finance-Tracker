@@ -13,6 +13,8 @@ class AddItemVC: UIViewController {
     
     // MARK: Properties
     
+    var transactionType = Constants.typeIncome
+    
     lazy var transactionTypeSegment: UISegmentedControl = {
         let items = ["Income", "Expense"]
         let s = UISegmentedControl(items: items)
@@ -98,9 +100,11 @@ class AddItemVC: UIViewController {
         case 0:
             sender.tintColor = Constants.incomeColor
             addItemButton.backgroundColor = Constants.incomeColor
+            transactionType = Constants.typeIncome
         case 1:
             sender.tintColor = Constants.expenseColor
             addItemButton.backgroundColor = Constants.expenseColor
+            transactionType = Constants.typeExpense
         default:
             break
         }
@@ -128,7 +132,7 @@ class AddItemVC: UIViewController {
     func addItemButtonTapped(sender: UIButton) {
         let realm = try! Realm()
         if let name = getItemName(), let price = getItemPrice() {
-            let item = Transaction(name: name, price: price)
+            let item = Transaction(name: name, price: price, type: transactionType)
             try! realm.write({
                 realm.add(item)
             })

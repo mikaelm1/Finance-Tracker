@@ -11,6 +11,8 @@ import RealmSwift
 
 class StatsVC: UIViewController {
     
+    var transactions: Results<Transaction>!
+    
     lazy var tableView: UITableView = {
         let t = UITableView()
         t.translatesAutoresizingMaskIntoConstraints = false
@@ -18,6 +20,7 @@ class StatsVC: UIViewController {
         t.dataSource = self
         t.registerClass(StatsCell.self, forCellReuseIdentifier: Constants.statsReuseId)
         //t.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
+        t.estimatedRowHeight = 50
         t.separatorStyle = .None
         t.backgroundColor = UIColor.whiteColor()
         return t
@@ -29,6 +32,8 @@ class StatsVC: UIViewController {
         v.backgroundColor = UIColor.darkGrayColor()
         return v
     }()
+    
+    // MARK: Life cycle
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -36,7 +41,10 @@ class StatsVC: UIViewController {
         automaticallyAdjustsScrollViewInsets = false
         view.backgroundColor = UIColor.whiteColor()
         setupViews()
+        loadTransactions()
     }
+    
+    // MARK: Helpers
     
     func setupViews() {
         view.addSubview(tableView)
@@ -49,6 +57,11 @@ class StatsVC: UIViewController {
         view.addConstraintsWithFormat("V:[v0(1)]-1-[v1(\(tableHeight))]|", views: seperatorView, tableView)
     }
     
+    func loadTransactions() {
+        let realm = try! Realm()
+        transactions = realm.objects(Transaction)
+    }
+    
 }
 
 extension StatsVC: UITableViewDelegate, UITableViewDataSource {
@@ -58,14 +71,19 @@ extension StatsVC: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 5
+        return transactions.count
     }
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         
+        let transaction = transactions[indexPath.row]
         let cell = tableView.dequeueReusableCellWithIdentifier(Constants.statsReuseId, forIndexPath: indexPath) as! StatsCell
-        cell.configureCell(indexPath.row)
+        cell.configureCell(indexPath.row, transaction: transaction)
         return cell
+    }
+    
+    func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
+        return 50
     }
     
 }
