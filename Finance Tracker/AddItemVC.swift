@@ -106,14 +106,35 @@ class AddItemVC: UIViewController {
         }
     }
     
+    func getItemName() -> String? {
+        if let name = itemNameField.text where name != "" {
+            return name
+        }
+        return nil
+    }
+    
+    func getItemPrice() -> Double? {
+        guard let priceString = itemPriceField.text else {
+            return nil
+        }
+        if let price = Double(priceString) {
+            return price
+        }
+        return nil
+    }
+    
     // MARK: Actions
     
     func addItemButtonTapped(sender: UIButton) {
         let realm = try! Realm()
-        let item = Transaction(name: itemNameField.text!, price: Double(itemPriceField.text!)!)
-        try! realm.write({ 
-            realm.add(item)
-        })
+        if let name = getItemName(), let price = getItemPrice() {
+            let item = Transaction(name: name, price: price)
+            try! realm.write({
+                realm.add(item)
+            })
+        } else {
+            print("Didn't get the fields")
+        }
     }
 
 }
