@@ -7,8 +7,11 @@
 //
 
 import UIKit
+import RealmSwift
 
 class AddItemVC: UIViewController {
+    
+    // MARK: Properties
     
     lazy var transactionTypeSegment: UISegmentedControl = {
         let items = ["Income", "Expense"]
@@ -49,25 +52,42 @@ class AddItemVC: UIViewController {
         v.backgroundColor = UIColor.darkGrayColor()
         return v
     }()
+    
+    lazy var addItemButton: UIButton = {
+        let b = UIButton()
+        b.translatesAutoresizingMaskIntoConstraints = false
+        b.layer.cornerRadius = 2
+        b.backgroundColor = Constants.incomeColor
+        b.setTitleColor(UIColor.whiteColor(), forState: .Normal)
+        b.setTitle("Add", forState: .Normal)
+        b.addTarget(self, action: #selector(addItemButtonTapped), forControlEvents: .TouchUpInside)
+        return b
+    }()
+    
+    // MARK: Life cycle
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        print("Realm: \(Realm.Configuration.defaultConfiguration.fileURL!)")
         view.backgroundColor = UIColor.whiteColor()
         setupViews()
     }
+    
+    // MARK: Helpers
     
     func setupViews() {
         view.addSubview(transactionTypeSegment)
         view.addSubview(itemPriceField)
         view.addSubview(itemNameField)
         view.addSubview(seperatorView)
+        view.addSubview(addItemButton)
         
-        view.addConstraintsWithFormat("V:|-80-[v0(35)]-40-[v1(40)]-1-[v2(1)]-10-[v3(40)]", views: transactionTypeSegment, itemNameField, seperatorView, itemPriceField)
+        view.addConstraintsWithFormat("V:|-80-[v0(35)]-40-[v1(40)]-1-[v2(1)]-10-[v3(40)]-10-[v4(30)]", views: transactionTypeSegment, itemNameField, seperatorView, itemPriceField, addItemButton)
         
         view.addConstraintsWithFormat("H:|-10-[v0]-10-|", views: itemNameField)
         view.addConstraintsWithFormat("H:|-5-[v0]-5-|", views: seperatorView)
         view.addConstraintsWithFormat("H:|-10-[v0]-10-|", views: itemPriceField)
+        view.addConstraintsWithFormat("H:|-10-[v0]-10-|", views: addItemButton)
         transactionTypeSegment.leadingAnchor.constraintEqualToAnchor(view.leadingAnchor, constant: 30).active = true
         transactionTypeSegment.trailingAnchor.constraintEqualToAnchor(view.trailingAnchor, constant: -30).active = true
         
@@ -77,11 +97,23 @@ class AddItemVC: UIViewController {
         switch sender.selectedSegmentIndex {
         case 0:
             sender.tintColor = Constants.incomeColor
+            addItemButton.backgroundColor = Constants.incomeColor
         case 1:
             sender.tintColor = Constants.expenseColor
+            addItemButton.backgroundColor = Constants.expenseColor
         default:
             break
         }
+    }
+    
+    // MARK: Actions
+    
+    func addItemButtonTapped(sender: UIButton) {
+        let realm = try! Realm()
+        let item = Transaction(name: itemNameField.text!, price: Double(itemPriceField.text!)!)
+        try! realm.write({ 
+            realm.add(item)
+        })
     }
 
 }
@@ -96,7 +128,7 @@ extension AddItemVC: UITextFieldDelegate {
             }
             return false
         }
-        return true 
+        return true
     }
     
 }
