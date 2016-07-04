@@ -64,11 +64,7 @@ extension StatsVC: UITableViewDelegate, UITableViewDataSource {
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         
         let cell = tableView.dequeueReusableCellWithIdentifier(Constants.statsReuseId, forIndexPath: indexPath) as! StatsCell
-        if indexPath.row % 2 == 0 {
-            cell.backgroundColor = UIColor.whiteColor()
-        } else {
-            cell.backgroundColor = UIColor.lightGrayColor()
-        }
+        cell.configureCell(indexPath.row)
         return cell
     }
     
