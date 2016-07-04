@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		70A868891D2ADACB002DBE4E /* StatsCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70A868881D2ADACB002DBE4E /* StatsCell.swift */; };
 		70C481D91D29A21D00410731 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70C481D81D29A21D00410731 /* AppDelegate.swift */; };
 		70C481E01D29A21D00410731 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 70C481DF1D29A21D00410731 /* Assets.xcassets */; };
 		70C481E31D29A21D00410731 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 70C481E11D29A21D00410731 /* LaunchScreen.storyboard */; };
@@ -22,6 +23,7 @@
 
 /* Begin PBXFileReference section */
 		5A7C1BA5AED7DA711942B643 /* Pods-Finance Tracker.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Finance Tracker.release.xcconfig"; path = "Pods/Target Support Files/Pods-Finance Tracker/Pods-Finance Tracker.release.xcconfig"; sourceTree = "<group>"; };
+		70A868881D2ADACB002DBE4E /* StatsCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StatsCell.swift; sourceTree = "<group>"; };
 		70C481D51D29A21D00410731 /* Finance Tracker.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Finance Tracker.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		70C481D81D29A21D00410731 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		70C481DF1D29A21D00410731 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -105,6 +107,7 @@
 		70C481F41D29BBA000410731 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				70A868881D2ADACB002DBE4E /* StatsCell.swift */,
 			);
 			name = View;
 			sourceTree = "<group>";
@@ -270,6 +273,7 @@
 				70C481EC1D29ABB600410731 /* CustomTabBarController.swift in Sources */,
 				70C481F71D29BBB700410731 /* ViewExtensions.swift in Sources */,
 				70C481F31D29B04100410731 /* Transaction.swift in Sources */,
+				70A868891D2ADACB002DBE4E /* StatsCell.swift in Sources */,
 				70C481F91D2AB66D00410731 /* ColorExtensions.swift in Sources */,
 				70C481FC1D2AB86100410731 /* Constants.swift in Sources */,
 			);

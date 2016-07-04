@@ -16,6 +16,7 @@ class StatsVC: UIViewController {
         t.translatesAutoresizingMaskIntoConstraints = false
         t.delegate = self
         t.dataSource = self
+        t.registerClass(StatsCell.self, forCellReuseIdentifier: Constants.statsReuseId)
         //t.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
         t.separatorStyle = .None
         t.backgroundColor = UIColor.whiteColor()
@@ -62,8 +63,7 @@ extension StatsVC: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         
-        let cell = UITableViewCell()
-        cell.textLabel?.text = "Hello"
+        let cell = tableView.dequeueReusableCellWithIdentifier(Constants.statsReuseId, forIndexPath: indexPath) as! StatsCell
         if indexPath.row % 2 == 0 {
             cell.backgroundColor = UIColor.whiteColor()
         } else {

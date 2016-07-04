@@ -15,5 +15,7 @@ struct Constants {
     
     static let priceFieldTag = 10
     static let nameFieldTag = 20
+    
+    static let statsReuseId = "reuseId"
 
 }
