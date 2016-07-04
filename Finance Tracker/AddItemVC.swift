@@ -14,7 +14,8 @@ class AddItemVC: UIViewController {
         let items = ["Income", "Expense"]
         let s = UISegmentedControl(items: items)
         s.translatesAutoresizingMaskIntoConstraints = false
-        s.tintColor = UIColor.greenColor()
+        s.tintColor = Constants.incomeColor
+        s.layer.cornerRadius = 10 
         s.addTarget(self, action: #selector(transactionTypeChanged), forControlEvents: .ValueChanged)
         s.selectedSegmentIndex = 0
         return s
@@ -39,9 +40,9 @@ class AddItemVC: UIViewController {
     func transactionTypeChanged(sender: UISegmentedControl) {
         switch sender.selectedSegmentIndex {
         case 0:
-            sender.tintColor = UIColor.greenColor()
+            sender.tintColor = Constants.incomeColor
         case 1:
-            sender.tintColor = UIColor.redColor()
+            sender.tintColor = Constants.expenseColor
         default:
             break
         }
