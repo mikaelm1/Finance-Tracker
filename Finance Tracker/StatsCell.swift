@@ -83,10 +83,15 @@ class StatsCell: UITableViewCell {
         let stringDate = stringFromDate(transaction.created)
         dateLabel.text = stringDate
         priceLabel.text = "$\(Int(transaction.price))"
-        
+        if transaction.type == Constants.typeExpense {
+            priceLabel.textColor = Constants.expenseColor
+        } else {
+            priceLabel.textColor = Constants.incomeColor
+        }
         
         if indexPath % 2 == 0 || indexPath == 0 {
             backgroundColor = UIColor.lightGrayColor()
+            dateLabel.textColor = UIColor.whiteColor()
         } else {
             backgroundColor = UIColor.whiteColor()
         }
