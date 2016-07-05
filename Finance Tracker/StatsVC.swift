@@ -37,10 +37,15 @@ class StatsVC: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        print("Stats ViewDidLoad")
         automaticallyAdjustsScrollViewInsets = false
         view.backgroundColor = UIColor.whiteColor()
         setupViews()
+    }
+    
+    override func viewWillAppear(animated: Bool) {
+        super.viewWillAppear(animated)
+        print("Stats viewWillAppear")
         loadTransactions()
     }
     
@@ -54,12 +59,13 @@ class StatsVC: UIViewController {
         
         view.addConstraintsWithFormat("H:|[v0]|", views: tableView)
         view.addConstraintsWithFormat("H:|[v0]|", views: seperatorView)
-        view.addConstraintsWithFormat("V:[v0(1)]-1-[v1(\(tableHeight))]|", views: seperatorView, tableView)
+        view.addConstraintsWithFormat("V:[v0(1)]-1-[v1(\(tableHeight))]-50-|", views: seperatorView, tableView)
     }
     
     func loadTransactions() {
         let realm = try! Realm()
         transactions = realm.objects(Transaction)
+        tableView.reloadData()
     }
     
 }

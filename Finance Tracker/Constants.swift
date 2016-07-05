@@ -19,6 +19,6 @@ struct Constants {
     static let statsReuseId = "reuseId"
     
     static let typeIncome = "income"
-    static let typeExpense = "expens"
+    static let typeExpense = "expense"
 
 }
