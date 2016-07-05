@@ -7,7 +7,8 @@
 //
 
 import UIKit
-import RealmSwift 
+import RealmSwift
+import Charts 
 
 class StatsVC: UIViewController {
     

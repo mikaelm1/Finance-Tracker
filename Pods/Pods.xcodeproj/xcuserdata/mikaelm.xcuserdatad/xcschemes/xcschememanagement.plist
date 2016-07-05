@@ -4,6 +4,11 @@
 <dict>
 	<key>SchemeUserState</key>
 	<dict>
+		<key>Charts.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
 		<key>Pods-Finance Tracker.xcscheme</key>
 		<dict>
 			<key>isShown</key>
@@ -22,17 +27,22 @@
 	</dict>
 	<key>SuppressBuildableAutocreation</key>
 	<dict>
-		<key>B0049540C340DFAC4B46F4D1E39D134D</key>
+		<key>1436BC7D9B1EA6C63053369097216A94</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>CAEF8AE677E20EAA3E89F8E9077B9597</key>
+		<key>68C1A0FC5BCAB68E0CB51EB8BF0560DF</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>D62117A40CA757B69DBE0780ECB73FBA</key>
+		<key>C6828C2508515BC0428D6BDAA1292DC9</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>F6D37880AF21F91E277A64F60771C18D</key>
 		<dict>
 			<key>primary</key>
 			<true/>
