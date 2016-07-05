@@ -75,12 +75,13 @@ class AddItemVC: UIViewController {
         setupViews()
     }
     
-    // MARK: Helpers
+    // MARK: Views
     
     func setupViews() {
         view.addSubview(transactionTypeSegment)
         view.addSubview(itemPriceField)
         view.addSubview(itemNameField)
+        itemNameField.becomeFirstResponder()
         view.addSubview(seperatorView)
         view.addSubview(addItemButton)
         
@@ -110,6 +111,14 @@ class AddItemVC: UIViewController {
         }
     }
     
+    // MARK: Helpers
+    
+    func clearFields() {
+        itemNameField.text = ""
+        itemPriceField.text = ""
+        itemNameField.becomeFirstResponder()
+    }
+    
     func getItemName() -> String? {
         if let name = itemNameField.text where name != "" {
             return name
@@ -136,8 +145,20 @@ class AddItemVC: UIViewController {
             try! realm.write({
                 realm.add(item)
             })
+            // TODO: Change the button colors
+            SweetAlert().showAlert("Transaction Added!", subTitle: "Would you like to add another transaction?", style: AlertStyle.Success, buttonTitle: "Yes", buttonColor: UIColor.blueColor(), otherButtonTitle: "No", otherButtonColor: UIColor.redColor(), action: { (isOtherButton) in
+                if isOtherButton {
+                    // Yes tapped
+                    self.clearFields()
+                } else {
+                    // No tapped 
+                    dispatch_async(dispatch_get_main_queue(), {
+                        self.tabBarController?.selectedIndex = 0
+                    })
+                }
+            })
         } else {
-            print("Didn't get the fields")
+            SweetAlert().showAlert("Incomplete", subTitle: "Please enter a name and price for the transaction.", style: AlertStyle.Error)
         }
     }
 
