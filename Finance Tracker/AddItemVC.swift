@@ -169,7 +169,7 @@ extension AddItemVC: UITextFieldDelegate {
     func textField(textField: UITextField, shouldChangeCharactersInRange range: NSRange, replacementString string: String) -> Bool {
 
         if textField.tag == Constants.priceFieldTag {
-            if Int(string) != nil {
+            if Int(string) != nil || string == "" {
                 return true
             }
             return false
