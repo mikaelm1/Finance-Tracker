@@ -16,4 +16,13 @@ struct DateHelper {
         return formatter.stringFromDate(date)
     }
     
+    static func randomDateFrom(year year: Int) -> NSDate {
+         let userCalender = NSCalendar.currentCalendar()
+        let c = NSDateComponents()
+        c.year = year
+        c.month = Int(arc4random_uniform(12)) + 1
+        c.day = Int(arc4random_uniform(28)) + 1
+        return userCalender.dateFromComponents(c)!
+    }
+    
 }

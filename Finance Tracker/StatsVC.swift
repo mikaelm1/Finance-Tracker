@@ -68,6 +68,7 @@ class StatsVC: UIViewController {
         navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .Done, target: self, action: #selector(deletaAllTransactions(_:)))
     }
     
+    // TODO: Temp func
     func deletaAllTransactions(sender: UIBarButtonItem) {
         try! realm.write({ 
             realm.deleteAll()
