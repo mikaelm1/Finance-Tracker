@@ -13,6 +13,7 @@ import Charts
 class StatsVC: UIViewController {
     
     var transactions: Results<Transaction>!
+    let realm = try! Realm()
     
     lazy var lineChartView: LineChartView = {
         let l = LineChartView()
@@ -62,6 +63,16 @@ class StatsVC: UIViewController {
         automaticallyAdjustsScrollViewInsets = false
         view.backgroundColor = UIColor.whiteColor()
         setupViews()
+        
+        //TODO: Temporary. Remove!
+        navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .Done, target: self, action: #selector(deletaAllTransactions(_:)))
+    }
+    
+    func deletaAllTransactions(sender: UIBarButtonItem) {
+        try! realm.write({ 
+            realm.deleteAll()
+            tableView.reloadData()
+        })
     }
     
     override func viewWillAppear(animated: Bool) {
@@ -137,7 +148,6 @@ class StatsVC: UIViewController {
     // MARK: Realm loaders
     
     func loadTransactions() {
-        let realm = try! Realm()
         transactions = realm.objects(Transaction)
         tableView.reloadData()
         var data = [String]()

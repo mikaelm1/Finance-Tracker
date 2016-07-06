@@ -73,6 +73,7 @@ class AddItemVC: UIViewController {
         print("Realm: \(Realm.Configuration.defaultConfiguration.fileURL!)")
         view.backgroundColor = UIColor.whiteColor()
         setupViews()
+        
     }
     
     // MARK: Views
