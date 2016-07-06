@@ -14,9 +14,17 @@ class StatsVC: UIViewController {
     
     var transactions: Results<Transaction>!
     
-    let lineChartView: LineChartView = {
+    lazy var lineChartView: LineChartView = {
         let l = LineChartView()
+        l.delegate = self
         l.noDataText = "No data to display"
+        l.descriptionText = ""
+        l.legend.form = .Line
+        l.xAxis.labelPosition = .Bottom
+        l.xAxis.drawGridLinesEnabled = true
+        l.pinchZoomEnabled = true
+        l.leftAxis.drawGridLinesEnabled = false
+        l.rightAxis.enabled = false
         return l
     }()
     
@@ -104,13 +112,10 @@ class StatsVC: UIViewController {
         let expenseSet = LineChartDataSet(yVals: expenseEntries, label: "Expense")
         expenseSet.colors = [Constants.expenseColor]
         
+        
         let data = LineChartData(xVals: dataPoints, dataSets: [incomeSet, expenseSet])
         
         lineChartView.data = data
-        lineChartView.xAxis.labelPosition = .Bottom
-        lineChartView.xAxis.drawGridLinesEnabled = false 
-        lineChartView.pinchZoomEnabled = true
-        
     }
     
     // MARK: Helpers
@@ -174,6 +179,16 @@ extension StatsVC: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
         return 50
+    }
+    
+}
+
+extension StatsVC: ChartViewDelegate {
+    
+    func chartValueSelected(chartView: ChartViewBase, entry: ChartDataEntry, dataSetIndex: Int, highlight: ChartHighlight) {
+        print(entry)
+        print(dataSetIndex)
+        print(highlight)
     }
     
 }
