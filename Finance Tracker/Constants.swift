@@ -11,7 +11,7 @@ import UIKit
 struct Constants {
     
     static let expenseColor = UIColor.rgb(244, green: 67, blue: 54, alpha: 1)
-    static let incomeColor = UIColor.rgb(0, green: 230, blue: 118, alpha: 1)
+    static let incomeColor = UIColor.rgb(100, green: 221, blue: 23, alpha: 1)
     static let purpleBarColor = UIColor.rgb(156, green: 39, blue: 176, alpha: 1)
     
     static let priceFieldTag = 10

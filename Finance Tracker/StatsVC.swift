@@ -107,6 +107,10 @@ class StatsVC: UIViewController {
         let data = LineChartData(xVals: dataPoints, dataSets: [incomeSet, expenseSet])
         
         lineChartView.data = data
+        lineChartView.xAxis.labelPosition = .Bottom
+        lineChartView.xAxis.drawGridLinesEnabled = false 
+        lineChartView.pinchZoomEnabled = true
+        
     }
     
     // MARK: Helpers
@@ -125,11 +129,7 @@ class StatsVC: UIViewController {
         view.addConstraintsWithFormat("V:|-70-[v0(\(chartHeight))]-1-[v1(1)]-1-[v2]-50-|", views: lineChartView, seperatorView, tableView)
     }
     
-    func monthFromDate(date: NSDate) -> String {
-        let formatter = NSDateFormatter()
-        formatter.dateFormat = "MMM"
-        return formatter.stringFromDate(date)
-    }
+    // MARK: Realm loaders
     
     func loadTransactions() {
         let realm = try! Realm()
@@ -144,7 +144,7 @@ class StatsVC: UIViewController {
             } else {
                 expenses.append(item.price)
             }
-            let month = monthFromDate(item.created)
+            let month = DateHelper.monthFromDate(item.created)
             if !data.contains(month) {
                 data.append(month)
             }
