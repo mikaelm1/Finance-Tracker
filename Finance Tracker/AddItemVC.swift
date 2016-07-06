@@ -15,6 +15,8 @@ class AddItemVC: UIViewController {
     
     var transactionType = Constants.typeIncome
     
+    let realm = try! Realm()
+    
     lazy var transactionTypeSegment: UISegmentedControl = {
         let items = ["Income", "Expense"]
         let s = UISegmentedControl(items: items)
@@ -75,7 +77,7 @@ class AddItemVC: UIViewController {
         setupViews()
         
         // TODO: Temp. Remove.
-        createDummyData()
+        //createDummyData()
     }
     
     func createDummyData() {
@@ -90,6 +92,16 @@ class AddItemVC: UIViewController {
             let d2 = DateHelper.randomDateFrom(year: 2016)
             incomeDates.append(d2)
             print("D2: \(d2)")
+        }
+        
+        //var dummyTransactions = [DummyTransaction]()
+        for i in 0..<incomes.count {
+            let expensedt = DummyTransaction(name: "Expense", price: Double(i * 20 + 10), type: Constants.typeExpense, date: expenseDates[i])
+            let incomedt = DummyTransaction(name: "Income", price: Double(i * 10 + 30), type: Constants.typeIncome, date: incomeDates[i])
+            try! realm.write({
+                realm.add(expensedt)
+                realm.add(incomedt)
+            })
         }
         
     }
