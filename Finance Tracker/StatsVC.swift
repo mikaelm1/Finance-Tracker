@@ -111,6 +111,21 @@ class StatsVC: UIViewController {
         lineChartView.data = incomes
     }
     
+    func setChart(dataPoints: [String], values: [Double]) {
+        var entries = [ChartDataEntry]()
+        for i in 0..<dataPoints.count {
+            let entry = ChartDataEntry(value: values[i], xIndex: i)
+            entries.append(entry)
+        }
+        
+        let dataSet = LineChartDataSet(yVals: entries, label: "Transactions")
+        dataSet.colors = ChartColorTemplates.colorful()
+        
+        let data = LineChartData(xVals: dataPoints, dataSets: [dataSet])
+        
+        lineChartView.data = data
+    }
+    
     func setChart(dataPoints: [String], incomeValues: [Double], expenseValues: [Double]) {
         
         var incomeEntries = [ChartDataEntry]()
@@ -201,7 +216,9 @@ class StatsVC: UIViewController {
         }
         print("Four Total: \(fourTotal)")
         
-
+        let values = [oneTotal, twoTotal, threeTotal, fourTotal]
+        
+        setChart(["One", "Two", "Three", "Four"], values: values)
     }
     
     func showTransactionsOneWeekAgo() {
