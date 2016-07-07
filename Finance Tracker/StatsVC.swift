@@ -12,7 +12,7 @@ import Charts
 
 class StatsVC: UIViewController {
     
-    var transactions: Results<DummyTransaction>!
+    var transactions: Results<Transaction>!
     let realm = try! Realm()
     let realmHelper = RealmHelper.sharedInstance
     
@@ -84,7 +84,7 @@ class StatsVC: UIViewController {
         //loadTransactionsWithinMonth()
         //loadAllTransactions()
         showTransactionsWithinMonth()
-        transactions = realm.objects(DummyTransaction)
+        transactions = realm.objects(Transaction)
     }
     
     // MARK: Chart setup
@@ -161,12 +161,12 @@ class StatsVC: UIViewController {
     
     func loadAllTransactions() {
         
-        transactions = realm.objects(DummyTransaction)
+        transactions = realm.objects(Transaction)
         
         let expensePredicate = NSPredicate(format: "type = %@", Constants.typeExpense)
         let predicate2 = NSPredicate(format: "type = %@", Constants.typeIncome)
-        let expenseTransactions = realm.objects(DummyTransaction).filter(expensePredicate)
-        let incomeTransactions = realm.objects(DummyTransaction).filter(predicate2)
+        let expenseTransactions = realm.objects(Transaction).filter(expensePredicate)
+        let incomeTransactions = realm.objects(Transaction).filter(predicate2)
         //print("Income Transactions: \(incomeTransactions)\n\n")
         //print("Expense Transactions: \(expenseTransactions)")
     }
@@ -178,7 +178,7 @@ class StatsVC: UIViewController {
         print("Week ago: \(weekAgo)")
         print("Today: \(today)")
         let predicate = NSPredicate(format: "created BETWEEN {%@, %@}", monthAgo, today)
-        transactions = realm.objects(DummyTransaction).filter(predicate)
+        transactions = realm.objects(Transaction).filter(predicate)
         print("Transactions: \(transactions)")
         tableView.reloadData()
         var data = [String]()

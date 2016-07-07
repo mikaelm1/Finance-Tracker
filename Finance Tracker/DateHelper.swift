@@ -26,7 +26,7 @@ struct DateHelper {
         let userCalender = NSCalendar.currentCalendar()
         let c = NSDateComponents()
         c.year = year
-        c.month = Int(arc4random_uniform(12)) + 1
+        c.month = Int(arc4random_uniform(6)) + 1
         c.day = Int(arc4random_uniform(28)) + 1
         return userCalender.dateFromComponents(c)!
     }

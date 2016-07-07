@@ -77,12 +77,12 @@ class AddItemVC: UIViewController {
         setupViews()
         
         // TODO: Temp. Remove.
-        //createDummyData()
+        createDummyData()
     }
     
     func createDummyData() {
-        let expenses = Array(count: 20, repeatedValue: "Expense")
-        let incomes = Array(count: 20, repeatedValue: "Income")
+        let expenses = Array(count: 100, repeatedValue: "Expense")
+        let incomes = Array(count: 100, repeatedValue: "Income")
         var expenseDates = [NSDate]()
         var incomeDates = [NSDate]()
         for _ in 0..<expenses.count {
@@ -94,16 +94,17 @@ class AddItemVC: UIViewController {
             print("D2: \(d2)")
         }
         
-        //var dummyTransactions = [DummyTransaction]()
+        var dummyTransactions = [Transaction]()
         for i in 0..<incomes.count {
-            let expensedt = DummyTransaction(name: "Expense", price: Double(i * 20 + 10), type: Constants.typeExpense, date: expenseDates[i])
-            let incomedt = DummyTransaction(name: "Income", price: Double(i * 10 + 30), type: Constants.typeIncome, date: incomeDates[i])
-            try! realm.write({
-                realm.add(expensedt)
-                realm.add(incomedt)
-            })
+            let expensedt = Transaction(name: "Expense", price: Double(i * 20 + 10), type: Constants.typeExpense, date: expenseDates[i])
+            let incomedt = Transaction(name: "Income", price: Double(i * 10 + 30), type: Constants.typeIncome, date: incomeDates[i])
+            dummyTransactions.append(expensedt)
+            dummyTransactions.append(incomedt)
+
         }
-        
+        try! realm.write({
+            realm.add(dummyTransactions)
+        })
     }
     
     // MARK: Views
