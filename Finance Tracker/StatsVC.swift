@@ -21,12 +21,13 @@ class StatsVC: UIViewController {
         l.delegate = self
         l.noDataText = "No data to display"
         l.descriptionText = ""
+        l.backgroundColor = UIColor.rgb(222, green: 237, blue: 200, alpha: 1)
         l.legend.form = .Line
         l.xAxis.labelPosition = .Bottom
         l.xAxis.drawGridLinesEnabled = true
         l.pinchZoomEnabled = true
         l.leftAxis.drawGridLinesEnabled = false
-        l.rightAxis.enabled = false
+        l.rightAxis.enabled = true
         return l
     }()
     
@@ -34,6 +35,13 @@ class StatsVC: UIViewController {
         let b = BarChartView()
         b.noDataText = "No data to display"
         return b
+    }()
+    
+    let choicesContainer: UIView = {
+        let v = UIView()
+        v.translatesAutoresizingMaskIntoConstraints = false
+        v.backgroundColor = UIColor.clearColor()
+        return v
     }()
     
     lazy var tableView: UITableView = {
@@ -62,7 +70,7 @@ class StatsVC: UIViewController {
         super.viewDidLoad()
         print("Stats ViewDidLoad")
         automaticallyAdjustsScrollViewInsets = false
-        view.backgroundColor = UIColor.whiteColor()
+        view.backgroundColor = UIColor.rgb(222, green: 237, blue: 200, alpha: 1)
         setupViews()
         
         //TODO: Temporary. Remove!
@@ -111,6 +119,7 @@ class StatsVC: UIViewController {
         lineChartView.data = incomes
     }
     
+    /// Single line chart
     func setChart(dataPoints: [String], values: [Double]) {
         var entries = [ChartDataEntry]()
         for i in 0..<dataPoints.count {
@@ -119,13 +128,19 @@ class StatsVC: UIViewController {
         }
         
         let dataSet = LineChartDataSet(yVals: entries, label: "Transactions")
-        dataSet.colors = ChartColorTemplates.colorful()
+        dataSet.colors = [Constants.purpleBarColor]
+        dataSet.circleRadius = 5
+        dataSet.lineWidth = 3
+        dataSet.drawCircleHoleEnabled = false
+        dataSet.circleColors = [Constants.purpleBarColor]
+        dataSet.cubicIntensity = 0.05
         
         let data = LineChartData(xVals: dataPoints, dataSets: [dataSet])
         
         lineChartView.data = data
     }
     
+    /// Double line chart
     func setChart(dataPoints: [String], incomeValues: [Double], expenseValues: [Double]) {
         
         var incomeEntries = [ChartDataEntry]()
@@ -154,17 +169,21 @@ class StatsVC: UIViewController {
     // MARK: Helpers
     
     func setupViews() {
-        view.addSubview(tableView)
-        view.addSubview(seperatorView)
+        //view.addSubview(tableView)
+        //view.addSubview(seperatorView)
         view.addSubview(lineChartView)
+        view.addSubview(choicesContainer)
         
         //let tableHeight = view.frame.height * 0.4
-        let chartHeight = view.frame.height * 0.6
+        //let chartHeight = view.frame.height - 120
         
-        view.addConstraintsWithFormat("H:|[v0]|", views: tableView)
-        view.addConstraintsWithFormat("H:|[v0]|", views: seperatorView)
+        //view.addConstraintsWithFormat("H:|[v0]|", views: tableView)
+        //view.addConstraintsWithFormat("H:|[v0]|", views: seperatorView)
         view.addConstraintsWithFormat("H:|[v0]|", views: lineChartView)
-        view.addConstraintsWithFormat("V:|-70-[v0(\(chartHeight))]-1-[v1(1)]-1-[v2]-50-|", views: lineChartView, seperatorView, tableView)
+        view.addConstraintsWithFormat("H:|[v0]|", views: choicesContainer)
+        //view.addConstraintsWithFormat("V:|-60-[v0(\(chartHeight))]-0-[v1(1)]-1-[v2]-50-|", views: lineChartView, seperatorView, tableView)
+        
+        view.addConstraintsWithFormat("V:|-60-[v0][v1(50)]-50-|", views: lineChartView, choicesContainer)
     }
     
     // MARK: Realm loaders
@@ -217,8 +236,8 @@ class StatsVC: UIViewController {
         print("Four Total: \(fourTotal)")
         
         let values = [oneTotal, twoTotal, threeTotal, fourTotal]
-        
         setChart(["One", "Two", "Three", "Four"], values: values)
+        
     }
     
     func showTransactionsOneWeekAgo() {
@@ -228,15 +247,7 @@ class StatsVC: UIViewController {
     }
     
     func loadAllTransactions() {
-        
         transactions = realm.objects(Transaction)
-        
-        let expensePredicate = NSPredicate(format: "type = %@", Constants.typeExpense)
-        let predicate2 = NSPredicate(format: "type = %@", Constants.typeIncome)
-        let expenseTransactions = realm.objects(Transaction).filter(expensePredicate)
-        let incomeTransactions = realm.objects(Transaction).filter(predicate2)
-        //print("Income Transactions: \(incomeTransactions)\n\n")
-        //print("Expense Transactions: \(expenseTransactions)")
     }
     
     func loadTransactions() {
