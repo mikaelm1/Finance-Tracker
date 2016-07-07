@@ -197,9 +197,10 @@ class StatsVC: UIViewController {
             fourTotal -= expense.price
         }
         for income in fourIncomes {
-            fourTotal += income.price 
+            fourTotal += income.price
         }
         print("Four Total: \(fourTotal)")
+        
 
     }
     
