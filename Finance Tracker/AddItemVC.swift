@@ -77,7 +77,7 @@ class AddItemVC: UIViewController {
         setupViews()
         
         // TODO: Temp. Remove.
-        createDummyData()
+        //createDummyData()
     }
     
     func createDummyData() {

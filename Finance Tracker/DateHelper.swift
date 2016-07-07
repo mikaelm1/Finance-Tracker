@@ -10,6 +10,20 @@ import Foundation
 
 struct DateHelper {
     
+    static let sharedInstance = DateHelper()
+    
+    func getLastSevenDays() -> [NSDate]? {
+        var days = [NSDate]()
+        let calender = NSCalendar.currentCalendar()
+        for i in 1...7 {
+            guard let day = calender.dateByAddingUnit(.Day, value: -i, toDate: NSDate(), options: NSCalendarOptions()) else {
+                return nil
+            }
+            days.append(day)
+        }
+        return days 
+    }
+    
     static func monthFromDate(date: NSDate) -> String {
         let formatter = NSDateFormatter()
         formatter.dateFormat = "MMM"
@@ -33,6 +47,18 @@ struct DateHelper {
     
     static func weekAgo() -> NSDate? {
         return NSCalendar.currentCalendar().dateByAddingUnit(.WeekOfYear, value: -1, toDate: NSDate(), options: NSCalendarOptions())
+    }
+    
+    static func twoWeeksAgo() -> NSDate? {
+        return NSCalendar.currentCalendar().dateByAddingUnit(.WeekOfYear, value: -2, toDate: NSDate(), options: NSCalendarOptions())
+    }
+    
+    static func threeWeeksAgo() -> NSDate? {
+        return NSCalendar.currentCalendar().dateByAddingUnit(.WeekOfYear, value: -3, toDate: NSDate(), options: NSCalendarOptions())
+    }
+    
+    static func fourWeeksAgo() -> NSDate? {
+        return NSCalendar.currentCalendar().dateByAddingUnit(.WeekOfYear, value: -4, toDate: NSDate(), options: NSCalendarOptions())
     }
     
     static func monthAgo() -> NSDate? {

@@ -84,6 +84,7 @@ class StatsVC: UIViewController {
         //loadTransactionsWithinMonth()
         //loadAllTransactions()
         showTransactionsWithinMonth()
+        //showTransactionsOneWeekAgo()
         transactions = realm.objects(Transaction)
     }
     
@@ -154,9 +155,58 @@ class StatsVC: UIViewController {
     // MARK: Realm loaders
     
     func showTransactionsWithinMonth() {
-        let (incomes, expenses) = realmHelper.loadTransactionsOneMonthAgo()
-        print(incomes)
-        print(expenses)
+        let (oneExpenses, oneIncomes) = realmHelper.loadTransactionsOneWeekAgo()
+        var oneTotal: Double = 0
+        for expense in oneExpenses {
+            oneTotal -= expense.price
+        }
+        for income in oneIncomes {
+            oneTotal += income.price
+        }
+        print("One Total: \(oneTotal)")
+        
+        let (twoExpenses, twoIncomes) = realmHelper.loadTransactionsTwoWeeksAgo()
+        //print("Two expenses: \(twoExpenses)")
+        //print("Two Incomes: \(twoIncomes)")
+        var twoTotal: Double = 0
+        for expense in twoExpenses {
+            twoTotal -= expense.price
+        }
+        for income in twoIncomes {
+            twoTotal += income.price
+        }
+        print("Two Total: \(twoTotal)")
+        
+        let (threeExpenses, threeIncomes) = realmHelper.loadTransactionsThreeWeeksAgo()
+        //print("Three expenses: \(threeExpenses.count)")
+        //print("Three incomes: \(threeIncomes.count)")
+        var threeTotal: Double = 0
+        for expense in threeExpenses {
+            threeTotal -= expense.price
+        }
+        for income in threeIncomes {
+            threeTotal += income.price
+        }
+        print("Three Total: \(threeTotal)")
+        
+        let (fourExpenses, fourIncomes) = realmHelper.loadTransactionsFourWeeksAgo()
+        print("Four expenses: \(fourExpenses.count)")
+        print("Four incomes: \(fourIncomes.count)")
+        var fourTotal: Double = 0
+        for expense in fourExpenses {
+            fourTotal -= expense.price
+        }
+        for income in fourIncomes {
+            fourTotal += income.price 
+        }
+        print("Four Total: \(fourTotal)")
+
+    }
+    
+    func showTransactionsOneWeekAgo() {
+        let (expenses, incomes) = realmHelper.loadTransactionsOneWeekAgo()
+        print(expenses.count)
+        print(incomes.count)
     }
     
     func loadAllTransactions() {
