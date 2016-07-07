@@ -172,7 +172,7 @@ class AddItemVC: UIViewController {
     func addItemButtonTapped(sender: UIButton) {
         let realm = try! Realm()
         if let name = getItemName(), let price = getItemPrice() {
-            let item = Transaction(name: name, price: price, type: transactionType)
+            let item = Transaction(name: name, price: price, type: transactionType, date: nil)
             try! realm.write({
                 realm.add(item)
             })

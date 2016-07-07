@@ -21,11 +21,14 @@ class Transaction: Object {
         return "transactionId"
     }
     
-    convenience init(name: String, price: Double, type: String) {
+    convenience init(name: String, price: Double, type: String, date: NSDate?) {
         self.init()
         self.name = name
         self.price = price
-        self.type = type 
+        self.type = type
+        if let d = date {
+            self.created = d
+        } 
     }
     
 }
