@@ -12,8 +12,9 @@ import Charts
 
 class StatsVC: UIViewController {
     
-    var transactions: Results<Transaction>!
+    var transactions: Results<DummyTransaction>!
     let realm = try! Realm()
+    let realmHelper = RealmHelper.sharedInstance
     
     lazy var lineChartView: LineChartView = {
         let l = LineChartView()
@@ -70,16 +71,20 @@ class StatsVC: UIViewController {
     
     // TODO: Temp func
     func deletaAllTransactions(sender: UIBarButtonItem) {
-        try! realm.write({ 
-            realm.deleteAll()
-            tableView.reloadData()
-        })
+//        try! realm.write({ 
+//            realm.deleteAll()
+//            tableView.reloadData()
+//        })
     }
     
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
         print("Stats viewWillAppear")
-        loadTransactions()
+        //loadTransactions()
+        //loadTransactionsWithinMonth()
+        //loadAllTransactions()
+        showTransactionsWithinMonth()
+        transactions = realm.objects(DummyTransaction)
     }
     
     // MARK: Chart setup
@@ -148,8 +153,33 @@ class StatsVC: UIViewController {
     
     // MARK: Realm loaders
     
+    func showTransactionsWithinMonth() {
+        let (incomes, expenses) = realmHelper.loadTransactionsOneMonthAgo()
+        print(incomes)
+        print(expenses)
+    }
+    
+    func loadAllTransactions() {
+        
+        transactions = realm.objects(DummyTransaction)
+        
+        let expensePredicate = NSPredicate(format: "type = %@", Constants.typeExpense)
+        let predicate2 = NSPredicate(format: "type = %@", Constants.typeIncome)
+        let expenseTransactions = realm.objects(DummyTransaction).filter(expensePredicate)
+        let incomeTransactions = realm.objects(DummyTransaction).filter(predicate2)
+        //print("Income Transactions: \(incomeTransactions)\n\n")
+        //print("Expense Transactions: \(expenseTransactions)")
+    }
+    
     func loadTransactions() {
-        transactions = realm.objects(Transaction)
+        let weekAgo = DateHelper.weekAgo()!
+        let monthAgo = DateHelper.monthAgo()!
+        let today = NSDate()
+        print("Week ago: \(weekAgo)")
+        print("Today: \(today)")
+        let predicate = NSPredicate(format: "created BETWEEN {%@, %@}", monthAgo, today)
+        transactions = realm.objects(DummyTransaction).filter(predicate)
+        print("Transactions: \(transactions)")
         tableView.reloadData()
         var data = [String]()
         var incomes = [Double]()
@@ -160,9 +190,10 @@ class StatsVC: UIViewController {
             } else {
                 expenses.append(item.price)
             }
-            let month = DateHelper.monthFromDate(item.created)
-            if !data.contains(month) {
-                data.append(month)
+            //let month = DateHelper.monthFromDate(item.created)
+            let day = DateHelper.dayOfWeekFromDate(item.created)
+            if !data.contains(day) {
+                data.append(day)
             }
         }
         setChart(data, incomeValues: incomes, expenseValues: expenses)
@@ -184,7 +215,8 @@ extension StatsVC: UITableViewDelegate, UITableViewDataSource {
         
         let transaction = transactions[indexPath.row]
         let cell = tableView.dequeueReusableCellWithIdentifier(Constants.statsReuseId, forIndexPath: indexPath) as! StatsCell
-        cell.configureCell(indexPath.row, transaction: transaction)
+        cell.backgroundColor = UIColor.redColor()
+        //cell.configureCell(indexPath.row, transaction: transaction)
         return cell
     }
     
