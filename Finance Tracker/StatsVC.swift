@@ -223,6 +223,10 @@ class StatsVC: UIViewController {
             showTransactionsForOneWeek()
         case TimeRange.oneMonth.rawValue:
             showTransactionsForOneMonth()
+        case TimeRange.sixMonths.rawValue:
+            showTransactionsForSixMonths()
+        case TimeRange.oneYear.rawValue:
+            showTransactionsForOneYear()
         default:
             print("Something is wrong. Shouldn't be here.")
         }
@@ -276,7 +280,7 @@ class StatsVC: UIViewController {
         print("Four Total: \(fourTotal)")
         
         let values = [oneTotal, twoTotal, threeTotal, fourTotal]
-        setChart(["One", "Two", "Three", "Four"], values: values)
+        setChart(["One", "Two", "Three", "Four"], values: values.reverse())
         
     }
     
@@ -285,15 +289,33 @@ class StatsVC: UIViewController {
             print("Didn't get the days from date helper")
             return
         }
+        
+        var values = [Double]()
         print(days.count)
-        let (expenses, incomes) = realmHelper.loadTransactionsOneWeekAgo()
-        var total: Double = 0
+        
+        for i in (1...7).reverse() {
+            var tempTotal: Double = 0
+            let (exp, inc) = realmHelper.loadTransactionsDaysAgo(i)
+            for expense in exp {
+                tempTotal -= expense.price
+            }
+            for income in inc {
+                tempTotal += income.price
+            }
+            values.append(tempTotal)
+        }
+        
+        let (expenses, incomes) = realmHelper.loadTransactionsOneDayAgo()
+        var oneTotal: Double = 0
         for expense in expenses {
-            total -= expense.price
+            oneTotal -= expense.price
         }
         for income in incomes {
-            total += income.price
+            oneTotal += income.price
         }
+        values.append(oneTotal)
+        
+        setChart(days.reverse(), values: values)
     }
     
     func showTransactionsForSixMonths() {

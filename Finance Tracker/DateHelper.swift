@@ -12,7 +12,7 @@ struct DateHelper {
     
     //static let sharedInstance = DateHelper()
     
-    static func getLastSevenDays() -> [NSDate]? {
+    static func getLastSevenDays() -> [String]? {
         var days = [NSDate]()
         let calender = NSCalendar.currentCalendar()
         for i in 0...6 {
@@ -21,7 +21,12 @@ struct DateHelper {
             }
             days.append(day)
         }
-        return days 
+        var stringDays = [String]()
+        for day in days {
+            let stringDay = dayOfWeekFromDate(day)
+            stringDays.append(stringDay)
+        }
+        return stringDays
     }
     
     static func monthFromDate(date: NSDate) -> String {
@@ -46,7 +51,7 @@ struct DateHelper {
     }
     
     static func dateFromDaysAgo(days: Int) -> NSDate? {
-        return NSCalendar.currentCalendar().dateByAddingUnit(.Day, value: -days + 1, toDate: NSDate(), options: NSCalendarOptions())
+        return NSCalendar.currentCalendar().dateByAddingUnit(.Day, value: -days, toDate: NSDate(), options: NSCalendarOptions())
     }
     
     static func weekAgo() -> NSDate? {

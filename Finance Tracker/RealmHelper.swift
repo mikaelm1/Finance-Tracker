@@ -38,11 +38,34 @@ struct RealmHelper {
         return (expenseTransactions, incomeTransactions)
     }
     
+    /// Get transactions for today
     func loadTransactionsOneDayAgo() -> (expenses: Results<Transaction>, incomes: Results<Transaction>) {
-        let weekAgo = DateHelper.weekAgo()!
-        let expensePredicate = NSPredicate(format: "created BETWEEN {%@, %@} AND type = %@", weekAgo, NSDate(), Constants.typeExpense)
+        guard let oneDayAgo = DateHelper.dateFromDaysAgo(1) else {
+            print("Didn't get the date")
+            let incomes = realm.objects(Transaction)
+            let expenses = realm.objects(Transaction)
+            return (expenses, incomes)
+        }
+        print("OneDayAgo: \(oneDayAgo)")
+        let expensePredicate = NSPredicate(format: "created Between {%@, %@} AND type = %@", oneDayAgo, NSDate(), Constants.typeExpense)
         let expenseTransactions = realm.objects(Transaction).filter(expensePredicate)
-        let incomePredicate = NSPredicate(format: "created BETWEEN {%@, %@} AND type = %@", weekAgo, NSDate(), Constants.typeIncome)
+        let incomePredicate = NSPredicate(format: "created Between {%@, %@} AND type = %@", oneDayAgo, NSDate(), Constants.typeIncome)
+        let incomeTransactions = realm.objects(Transaction).filter(incomePredicate)
+        
+        return (expenseTransactions, incomeTransactions)
+    }
+    
+    /// Get transactions for specific date: 1<=days<=7
+    func loadTransactionsDaysAgo(days: Int) -> (expenses: Results<Transaction>, incomes: Results<Transaction>) {
+        guard let daysAgo = DateHelper.dateFromDaysAgo(days), let toDaysAgo = DateHelper.dateFromDaysAgo(days - 1) else {
+            print("Didn't get the days")
+            return loadTransactionsOneDayAgo()
+        }
+        print("DaysAgo: \(daysAgo)")
+        print("ToDaysAgo: \(toDaysAgo)")
+        let expensePredicate = NSPredicate(format: "created Between {%@, %@} AND type = %@", daysAgo, toDaysAgo, Constants.typeExpense)
+        let expenseTransactions = realm.objects(Transaction).filter(expensePredicate)
+        let incomePredicate = NSPredicate(format: "created Between {%@, %@} AND type = %@", daysAgo, toDaysAgo, Constants.typeIncome)
         let incomeTransactions = realm.objects(Transaction).filter(incomePredicate)
         
         return (expenseTransactions, incomeTransactions)
