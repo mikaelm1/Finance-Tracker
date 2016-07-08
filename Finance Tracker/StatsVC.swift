@@ -44,6 +44,20 @@ class StatsVC: UIViewController {
         return v
     }()
     
+    let oneWeekButton: TimeRangeButton = {
+        let b = TimeRangeButton()
+        b.setTitle("1W", forState: .Normal)
+        b.selected = true 
+        return b
+    }()
+    
+    let oneMonthButton: TimeRangeButton = {
+        let b = TimeRangeButton()
+        b.translatesAutoresizingMaskIntoConstraints = false
+        b.setTitle("1M", forState: .Normal)
+        return b
+    }()
+    
     lazy var tableView: UITableView = {
         let t = UITableView()
         t.translatesAutoresizingMaskIntoConstraints = false
@@ -173,17 +187,24 @@ class StatsVC: UIViewController {
         //view.addSubview(seperatorView)
         view.addSubview(lineChartView)
         view.addSubview(choicesContainer)
+        choicesContainer.addSubview(oneWeekButton)
+        choicesContainer.addSubview(oneMonthButton)
         
         //let tableHeight = view.frame.height * 0.4
         //let chartHeight = view.frame.height - 120
+        let buttonWidth = view.frame.width / 4
         
         //view.addConstraintsWithFormat("H:|[v0]|", views: tableView)
         //view.addConstraintsWithFormat("H:|[v0]|", views: seperatorView)
         view.addConstraintsWithFormat("H:|[v0]|", views: lineChartView)
         view.addConstraintsWithFormat("H:|[v0]|", views: choicesContainer)
+        choicesContainer.addConstraintsWithFormat("H:|-5-[v0(\(buttonWidth))]-5-[v1(\(buttonWidth))]", views: oneWeekButton, oneMonthButton)
         //view.addConstraintsWithFormat("V:|-60-[v0(\(chartHeight))]-0-[v1(1)]-1-[v2]-50-|", views: lineChartView, seperatorView, tableView)
         
         view.addConstraintsWithFormat("V:|-60-[v0][v1(50)]-50-|", views: lineChartView, choicesContainer)
+        
+        choicesContainer.addConstraintsWithFormat("V:|-5-[v0]-5-|", views: oneWeekButton)
+        choicesContainer.addConstraintsWithFormat("V:|-5-[v0]-5-|", views: oneMonthButton)
     }
     
     // MARK: Realm loaders
@@ -240,7 +261,7 @@ class StatsVC: UIViewController {
         
     }
     
-    func showTransactionsOneWeekAgo() {
+    func showTransactionWithinWeek() {
         let (expenses, incomes) = realmHelper.loadTransactionsOneWeekAgo()
         print(expenses.count)
         print(incomes.count)

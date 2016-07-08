@@ -96,8 +96,8 @@ class AddItemVC: UIViewController {
         
         var dummyTransactions = [Transaction]()
         for i in 0..<incomes.count {
-            let expensedt = Transaction(name: "Expense", price: Double(i * 20 + 10), type: Constants.typeExpense, date: expenseDates[i])
-            let incomedt = Transaction(name: "Income", price: Double(i * 10 + 30), type: Constants.typeIncome, date: incomeDates[i])
+            let expensedt = Transaction(name: "Expense", price: Double(arc4random_uniform(1000)), type: Constants.typeExpense, date: expenseDates[i])
+            let incomedt = Transaction(name: "Income", price: Double(arc4random_uniform(1000)), type: Constants.typeIncome, date: incomeDates[i])
             dummyTransactions.append(expensedt)
             dummyTransactions.append(incomedt)
 

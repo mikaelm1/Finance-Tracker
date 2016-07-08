@@ -11,6 +11,8 @@
 		70A8688D1D2C1472002DBE4E /* SweetAlert.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70A8688C1D2C1472002DBE4E /* SweetAlert.swift */; };
 		70A8688F1D2CAC87002DBE4E /* DateHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70A8688E1D2CAC87002DBE4E /* DateHelper.swift */; };
 		70A868931D2EAABC002DBE4E /* RealmHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70A868921D2EAABC002DBE4E /* RealmHelper.swift */; };
+		70ABEBC11D30028A00EFE22D /* TimeRangeButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70ABEBC01D30028A00EFE22D /* TimeRangeButton.swift */; };
+		70ABEBC31D3006A600EFE22D /* TimeRangeContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70ABEBC21D3006A600EFE22D /* TimeRangeContainer.swift */; };
 		70C481D91D29A21D00410731 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70C481D81D29A21D00410731 /* AppDelegate.swift */; };
 		70C481E01D29A21D00410731 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 70C481DF1D29A21D00410731 /* Assets.xcassets */; };
 		70C481E31D29A21D00410731 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 70C481E11D29A21D00410731 /* LaunchScreen.storyboard */; };
@@ -30,6 +32,8 @@
 		70A8688C1D2C1472002DBE4E /* SweetAlert.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SweetAlert.swift; sourceTree = "<group>"; };
 		70A8688E1D2CAC87002DBE4E /* DateHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DateHelper.swift; sourceTree = "<group>"; };
 		70A868921D2EAABC002DBE4E /* RealmHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RealmHelper.swift; sourceTree = "<group>"; };
+		70ABEBC01D30028A00EFE22D /* TimeRangeButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TimeRangeButton.swift; sourceTree = "<group>"; };
+		70ABEBC21D3006A600EFE22D /* TimeRangeContainer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TimeRangeContainer.swift; sourceTree = "<group>"; };
 		70C481D51D29A21D00410731 /* Finance Tracker.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Finance Tracker.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		70C481D81D29A21D00410731 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		70C481DF1D29A21D00410731 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -115,6 +119,8 @@
 			children = (
 				70A8688C1D2C1472002DBE4E /* SweetAlert.swift */,
 				70A868881D2ADACB002DBE4E /* StatsCell.swift */,
+				70ABEBC01D30028A00EFE22D /* TimeRangeButton.swift */,
+				70ABEBC21D3006A600EFE22D /* TimeRangeContainer.swift */,
 			);
 			name = View;
 			sourceTree = "<group>";
@@ -286,8 +292,10 @@
 				70A868891D2ADACB002DBE4E /* StatsCell.swift in Sources */,
 				70C481F91D2AB66D00410731 /* ColorExtensions.swift in Sources */,
 				70A8688F1D2CAC87002DBE4E /* DateHelper.swift in Sources */,
+				70ABEBC31D3006A600EFE22D /* TimeRangeContainer.swift in Sources */,
 				70C481FC1D2AB86100410731 /* Constants.swift in Sources */,
 				70A868931D2EAABC002DBE4E /* RealmHelper.swift in Sources */,
+				70ABEBC11D30028A00EFE22D /* TimeRangeButton.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
