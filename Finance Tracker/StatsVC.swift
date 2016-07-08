@@ -78,8 +78,9 @@ class StatsVC: UIViewController {
         return v
     }()
     
-    let timeRangeView: TimeRangeContainer = {
+    lazy var timeRangeView: TimeRangeContainer = {
         let tr = TimeRangeContainer()
+        tr.statsViewController = self
         return tr
     }()
     
@@ -110,7 +111,7 @@ class StatsVC: UIViewController {
         //loadTransactions()
         //loadTransactionsWithinMonth()
         //loadAllTransactions()
-        showTransactionsWithinMonth()
+        showTransactionsForOneMonth()
         //showTransactionsOneWeekAgo()
         transactions = realm.objects(Transaction)
     }
@@ -191,32 +192,43 @@ class StatsVC: UIViewController {
         //view.addSubview(tableView)
         //view.addSubview(seperatorView)
         view.addSubview(lineChartView)
-        view.addSubview(choicesContainer)
-        choicesContainer.addSubview(oneWeekButton)
-        choicesContainer.addSubview(oneMonthButton)
-        //view.addSubview(timeRangeView)
+        //view.addSubview(choicesContainer)
+        //choicesContainer.addSubview(oneWeekButton)
+        //choicesContainer.addSubview(oneMonthButton)
+        view.addSubview(timeRangeView)
         
         
         //let tableHeight = view.frame.height * 0.4
         //let chartHeight = view.frame.height - 120
-        let buttonWidth = view.frame.width / 4
+        //let buttonWidth = view.frame.width / 4 - 10
         
         //view.addConstraintsWithFormat("H:|[v0]|", views: tableView)
         //view.addConstraintsWithFormat("H:|[v0]|", views: seperatorView)
         
         view.addConstraintsWithFormat("H:|[v0]|", views: lineChartView)
-        view.addConstraintsWithFormat("H:|[v0]|", views: choicesContainer)
+        view.addConstraintsWithFormat("H:|[v0]|", views: timeRangeView)
         
-        choicesContainer.addConstraintsWithFormat("H:|-5-[v0(\(buttonWidth))]-5-[v1(\(buttonWidth))]", views: oneWeekButton, oneMonthButton)
+        //choicesContainer.addConstraintsWithFormat("H:|-5-[v0(\(buttonWidth))]-5-[v1(\(buttonWidth))]", views: oneWeekButton, oneMonthButton)
         //view.addConstraintsWithFormat("V:|-60-[v0(\(chartHeight))]-0-[v1(1)]-1-[v2]-50-|", views: lineChartView, seperatorView, tableView)
-        choicesContainer.addConstraintsWithFormat("V:|[v0]|", views: oneWeekButton)
-        choicesContainer.addConstraintsWithFormat("V:|[v0]|", views: oneMonthButton)
-        view.addConstraintsWithFormat("V:|-60-[v0][v1(50)]-50-|", views: lineChartView, choicesContainer)
+        //choicesContainer.addConstraintsWithFormat("V:|[v0]|", views: oneWeekButton)
+        //choicesContainer.addConstraintsWithFormat("V:|[v0]|", views: oneMonthButton)
+        view.addConstraintsWithFormat("V:|-60-[v0][v1(50)]-50-|", views: lineChartView, timeRangeView)
     }
     
     // MARK: Realm loaders
     
-    func showTransactionsWithinMonth() {
+    func showTransactionsFor(timeRange: String) {
+        switch timeRange {
+        case TimeRange.oneWeek.rawValue:
+            showTransactionsForOneWeek()
+        case TimeRange.oneMonth.rawValue:
+            showTransactionsForOneMonth()
+        default:
+            print("Something is wrong. Shouldn't be here.")
+        }
+    }
+    
+    func showTransactionsForOneMonth() {
         let (oneExpenses, oneIncomes) = realmHelper.loadTransactionsOneWeekAgo()
         var oneTotal: Double = 0
         for expense in oneExpenses {
@@ -268,10 +280,28 @@ class StatsVC: UIViewController {
         
     }
     
-    func showTransactionWithinWeek() {
+    func showTransactionsForOneWeek() {
+        guard let days = DateHelper.getLastSevenDays() else {
+            print("Didn't get the days from date helper")
+            return
+        }
+        print(days.count)
         let (expenses, incomes) = realmHelper.loadTransactionsOneWeekAgo()
-        print(expenses.count)
-        print(incomes.count)
+        var total: Double = 0
+        for expense in expenses {
+            total -= expense.price
+        }
+        for income in incomes {
+            total += income.price
+        }
+    }
+    
+    func showTransactionsForSixMonths() {
+        
+    }
+    
+    func showTransactionsForOneYear() {
+        
     }
     
     func loadAllTransactions() {

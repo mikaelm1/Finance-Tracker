@@ -10,12 +10,12 @@ import Foundation
 
 struct DateHelper {
     
-    static let sharedInstance = DateHelper()
+    //static let sharedInstance = DateHelper()
     
-    func getLastSevenDays() -> [NSDate]? {
+    static func getLastSevenDays() -> [NSDate]? {
         var days = [NSDate]()
         let calender = NSCalendar.currentCalendar()
-        for i in 1...7 {
+        for i in 0...6 {
             guard let day = calender.dateByAddingUnit(.Day, value: -i, toDate: NSDate(), options: NSCalendarOptions()) else {
                 return nil
             }
@@ -43,6 +43,10 @@ struct DateHelper {
         c.month = Int(arc4random_uniform(6)) + 1
         c.day = Int(arc4random_uniform(28)) + 1
         return userCalender.dateFromComponents(c)!
+    }
+    
+    static func dateFromDaysAgo(days: Int) -> NSDate? {
+        return NSCalendar.currentCalendar().dateByAddingUnit(.Day, value: -days + 1, toDate: NSDate(), options: NSCalendarOptions())
     }
     
     static func weekAgo() -> NSDate? {

@@ -38,6 +38,16 @@ struct RealmHelper {
         return (expenseTransactions, incomeTransactions)
     }
     
+    func loadTransactionsOneDayAgo() -> (expenses: Results<Transaction>, incomes: Results<Transaction>) {
+        let weekAgo = DateHelper.weekAgo()!
+        let expensePredicate = NSPredicate(format: "created BETWEEN {%@, %@} AND type = %@", weekAgo, NSDate(), Constants.typeExpense)
+        let expenseTransactions = realm.objects(Transaction).filter(expensePredicate)
+        let incomePredicate = NSPredicate(format: "created BETWEEN {%@, %@} AND type = %@", weekAgo, NSDate(), Constants.typeIncome)
+        let incomeTransactions = realm.objects(Transaction).filter(incomePredicate)
+        
+        return (expenseTransactions, incomeTransactions)
+    }
+    
     func loadTransactionsTwoWeeksAgo() -> (expenses: Results<Transaction>, incomes: Results<Transaction>) {
         
         let twoWeeksAgo = DateHelper.twoWeeksAgo()!

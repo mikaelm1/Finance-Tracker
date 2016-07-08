@@ -67,8 +67,7 @@
 		70ABEBC61D301FBC00EFE22D /* Legacy */ = {
 			isa = PBXGroup;
 			children = (
-				70ABEBC21D3006A600EFE22D /* TimeRangeContainer.swift */,
-				70ABEBC41D301DE300EFE22D /* TimeRangeCell.swift */,
+				70ABEBC01D30028A00EFE22D /* TimeRangeButton.swift */,
 			);
 			name = Legacy;
 			sourceTree = "<group>";
@@ -129,9 +128,10 @@
 		70C481F41D29BBA000410731 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				70ABEBC21D3006A600EFE22D /* TimeRangeContainer.swift */,
+				70ABEBC41D301DE300EFE22D /* TimeRangeCell.swift */,
 				70A8688C1D2C1472002DBE4E /* SweetAlert.swift */,
 				70A868881D2ADACB002DBE4E /* StatsCell.swift */,
-				70ABEBC01D30028A00EFE22D /* TimeRangeButton.swift */,
 			);
 			name = View;
 			sourceTree = "<group>";
