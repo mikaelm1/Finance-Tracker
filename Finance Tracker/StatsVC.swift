@@ -78,6 +78,11 @@ class StatsVC: UIViewController {
         return v
     }()
     
+    let timeRangeView: TimeRangeContainer = {
+        let tr = TimeRangeContainer()
+        return tr
+    }()
+    
     // MARK: Life cycle
 
     override func viewDidLoad() {
@@ -189,6 +194,8 @@ class StatsVC: UIViewController {
         view.addSubview(choicesContainer)
         choicesContainer.addSubview(oneWeekButton)
         choicesContainer.addSubview(oneMonthButton)
+        //view.addSubview(timeRangeView)
+        
         
         //let tableHeight = view.frame.height * 0.4
         //let chartHeight = view.frame.height - 120
@@ -196,15 +203,15 @@ class StatsVC: UIViewController {
         
         //view.addConstraintsWithFormat("H:|[v0]|", views: tableView)
         //view.addConstraintsWithFormat("H:|[v0]|", views: seperatorView)
+        
         view.addConstraintsWithFormat("H:|[v0]|", views: lineChartView)
         view.addConstraintsWithFormat("H:|[v0]|", views: choicesContainer)
+        
         choicesContainer.addConstraintsWithFormat("H:|-5-[v0(\(buttonWidth))]-5-[v1(\(buttonWidth))]", views: oneWeekButton, oneMonthButton)
         //view.addConstraintsWithFormat("V:|-60-[v0(\(chartHeight))]-0-[v1(1)]-1-[v2]-50-|", views: lineChartView, seperatorView, tableView)
-        
+        choicesContainer.addConstraintsWithFormat("V:|[v0]|", views: oneWeekButton)
+        choicesContainer.addConstraintsWithFormat("V:|[v0]|", views: oneMonthButton)
         view.addConstraintsWithFormat("V:|-60-[v0][v1(50)]-50-|", views: lineChartView, choicesContainer)
-        
-        choicesContainer.addConstraintsWithFormat("V:|-5-[v0]-5-|", views: oneWeekButton)
-        choicesContainer.addConstraintsWithFormat("V:|-5-[v0]-5-|", views: oneMonthButton)
     }
     
     // MARK: Realm loaders
