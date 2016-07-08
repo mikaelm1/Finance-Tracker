@@ -54,20 +54,9 @@ struct DateHelper {
         return NSCalendar.currentCalendar().dateByAddingUnit(.Day, value: -days, toDate: NSDate(), options: NSCalendarOptions())
     }
     
-    static func weekAgo() -> NSDate? {
-        return NSCalendar.currentCalendar().dateByAddingUnit(.WeekOfYear, value: -1, toDate: NSDate(), options: NSCalendarOptions())
-    }
-    
-    static func twoWeeksAgo() -> NSDate? {
-        return NSCalendar.currentCalendar().dateByAddingUnit(.WeekOfYear, value: -2, toDate: NSDate(), options: NSCalendarOptions())
-    }
-    
-    static func threeWeeksAgo() -> NSDate? {
-        return NSCalendar.currentCalendar().dateByAddingUnit(.WeekOfYear, value: -3, toDate: NSDate(), options: NSCalendarOptions())
-    }
-    
-    static func fourWeeksAgo() -> NSDate? {
-        return NSCalendar.currentCalendar().dateByAddingUnit(.WeekOfYear, value: -4, toDate: NSDate(), options: NSCalendarOptions())
+    /// Inputting a paramter of "1" returns the date for one week ago
+    static func weeksAgo(weeks: Int) -> NSDate? {
+        return NSCalendar.currentCalendar().dateByAddingUnit(.WeekOfYear, value: -weeks, toDate: NSDate(), options: NSCalendarOptions())
     }
     
     static func monthAgo() -> NSDate? {

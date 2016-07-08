@@ -331,7 +331,7 @@ class StatsVC: UIViewController {
     }
     
     func loadTransactions() {
-        let weekAgo = DateHelper.weekAgo()!
+        let weekAgo = DateHelper.weeksAgo(1)!
         let monthAgo = DateHelper.monthAgo()!
         let today = NSDate()
         print("Week ago: \(weekAgo)")
