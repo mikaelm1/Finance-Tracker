@@ -12,10 +12,22 @@ class TimeRangeCell: UICollectionViewCell {
     
     let choiceLabel: UILabel = {
         let l = UILabel()
-        l.textColor = Constants.purpleBarColor
+        l.textColor = UIColor.blackColor()
         l.textAlignment = .Center
         return l
     }()
+    
+    override var highlighted: Bool {
+        didSet {
+            choiceLabel.textColor = highlighted ? Constants.purpleBarColor : UIColor.blackColor()
+        }
+    }
+    
+    override var selected: Bool {
+        didSet {
+            choiceLabel.textColor = selected ? Constants.purpleBarColor : UIColor.blackColor()
+        }
+    }
     
     override init(frame: CGRect) {
         super.init(frame: frame)

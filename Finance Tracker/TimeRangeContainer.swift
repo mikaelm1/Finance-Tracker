@@ -31,7 +31,16 @@ class TimeRangeContainer: UIView {
         cv.backgroundColor = UIColor.clearColor()
         return cv
     }()
+    
+    let slidingBar: UIView = {
+        let v = UIView()
+        v.translatesAutoresizingMaskIntoConstraints = false
+        v.backgroundColor = Constants.purpleBarColor
+        return v
+    }()
 
+    var slidingBarLeftAnchor: NSLayoutConstraint?
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
         setupViews()
@@ -47,6 +56,13 @@ class TimeRangeContainer: UIView {
         addSubview(collectionView)
         addConstraintsWithFormat("H:|[v0]|", views: collectionView)
         addConstraintsWithFormat("V:|[v0]|", views: collectionView)
+        
+        addSubview(slidingBar)
+        
+        slidingBarLeftAnchor = slidingBar.leftAnchor.constraintEqualToAnchor(leftAnchor, constant: 0)
+        slidingBarLeftAnchor?.active = true
+        slidingBar.bottomAnchor.constraintEqualToAnchor(bottomAnchor, constant: 0).active = true 
+        
     }
 
 }
