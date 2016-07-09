@@ -29,6 +29,12 @@ struct DateHelper {
         return stringDays
     }
     
+    static func getStringDayFromDate(date: NSDate) -> String {
+        let formatter = NSDateFormatter()
+        formatter.dateFormat = "MM/dd"
+        return formatter.stringFromDate(date)
+    }
+    
     static func monthFromDate(date: NSDate) -> String {
         let formatter = NSDateFormatter()
         formatter.dateFormat = "MMM"

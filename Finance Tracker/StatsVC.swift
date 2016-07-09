@@ -279,8 +279,23 @@ class StatsVC: UIViewController {
         }
         print("Four Total: \(fourTotal)")
         
+        var dates = [NSDate]()
+        for i in 0...3 {
+            if let d = DateHelper.weeksAgo(i) {
+                dates.append(d)
+            } else {
+                dates.append(NSDate())
+            }
+        }
+        
+        var dataPoints = [String]()
+        for d in dates {
+            let str = DateHelper.getStringDayFromDate(d)
+            dataPoints.append(str)
+        }
+        
         let values = [oneTotal, twoTotal, threeTotal, fourTotal]
-        setChart(["One", "Two", "Three", "Four"], values: values.reverse())
+        setChart(dataPoints.reverse(), values: values.reverse())
         
     }
     
