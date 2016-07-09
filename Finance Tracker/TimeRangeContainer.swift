@@ -44,6 +44,10 @@ class TimeRangeContainer: UIView {
     override init(frame: CGRect) {
         super.init(frame: frame)
         setupViews()
+        let selectedItem = NSIndexPath(forItem: 0, inSection: 0)
+        collectionView.selectItemAtIndexPath(selectedItem, animated: true, scrollPosition: .None)
+        
+        setupSlidingBar()
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -57,12 +61,16 @@ class TimeRangeContainer: UIView {
         addConstraintsWithFormat("H:|[v0]|", views: collectionView)
         addConstraintsWithFormat("V:|[v0]|", views: collectionView)
         
+    }
+    
+    func setupSlidingBar() {
         addSubview(slidingBar)
         
-        slidingBarLeftAnchor = slidingBar.leftAnchor.constraintEqualToAnchor(leftAnchor, constant: 0)
+        slidingBarLeftAnchor = slidingBar.leftAnchor.constraintEqualToAnchor(leftAnchor)
         slidingBarLeftAnchor?.active = true
-        slidingBar.bottomAnchor.constraintEqualToAnchor(bottomAnchor, constant: 0).active = true 
-        
+        slidingBar.bottomAnchor.constraintEqualToAnchor(bottomAnchor, constant: -2).active = true
+        slidingBar.widthAnchor.constraintEqualToAnchor(self.widthAnchor, multiplier: 1/4).active = true
+        slidingBar.heightAnchor.constraintEqualToConstant(5).active = true
     }
 
 }
@@ -80,9 +88,20 @@ extension TimeRangeContainer: UICollectionViewDelegate, UICollectionViewDataSour
     }
     
     func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
-        //print("Selected item at: \(indexPath.row)")
+        
+        let cell = collectionView.dequeueReusableCellWithReuseIdentifier(cellId, forIndexPath: indexPath) as! TimeRangeCell
+        cell.choiceLabel.frame.width
+        
+        let lAnchor = CGFloat(indexPath.item) * frame.width / 4
+        slidingBarLeftAnchor?.constant = lAnchor
+        
+        UIView.animateWithDuration(0.5, delay: 0, usingSpringWithDamping: 1, initialSpringVelocity: 1, options: .CurveEaseIn, animations: {
+            self.layoutIfNeeded()
+            }, completion: nil)
+        
         let time = cellTitles[indexPath.row].rawValue
         statsViewController?.showTransactionsFor(time)
+        
     }
     
     func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAtIndexPath indexPath: NSIndexPath) -> CGSize {

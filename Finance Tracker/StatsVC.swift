@@ -112,8 +112,8 @@ class StatsVC: UIViewController {
         //loadTransactionsWithinMonth()
         //loadAllTransactions()
         showTransactionsForOneMonth()
-        let selectedIndex = NSIndexPath(forItem: 1, inSection: 0)
-        timeRangeView.collectionView.selectItemAtIndexPath(selectedIndex, animated: true, scrollPosition: .None)
+//        let selectedIndex = NSIndexPath(forItem: 1, inSection: 0)
+//        timeRangeView.collectionView.selectItemAtIndexPath(selectedIndex, animated: true, scrollPosition: .None)
         //showTransactionsOneWeekAgo()
         transactions = realm.objects(Transaction)
     }

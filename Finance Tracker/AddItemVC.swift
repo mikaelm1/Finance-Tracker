@@ -88,10 +88,10 @@ class AddItemVC: UIViewController {
         for _ in 0..<expenses.count {
             let d = DateHelper.randomDateFrom(year: 2016)
             expenseDates.append(d)
-            print("D: \(d)")
+            //print("D: \(d)")
             let d2 = DateHelper.randomDateFrom(year: 2016)
             incomeDates.append(d2)
-            print("D2: \(d2)")
+            //print("D2: \(d2)")
         }
         
         var dummyTransactions = [Transaction]()

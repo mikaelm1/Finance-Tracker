@@ -38,8 +38,8 @@ struct RealmHelper {
         guard let monthsAgo = DateHelper.dateFromMonthsAgo(months), let toMonthsAgo = DateHelper.dateFromMonthsAgo(months + 1) else {
             return loadAllTransactions()
         }
-        print("Months Ago: \(monthsAgo)")
-        print("ToMonthsAgo: \(toMonthsAgo)")
+        //print("Months Ago: \(monthsAgo)")
+        //print("ToMonthsAgo: \(toMonthsAgo)")
         let expensePredicate = NSPredicate(format: "created Between {%@, %@} AND type = %@", toMonthsAgo, monthsAgo, Constants.typeExpense)
         let expenseTransactions = realm.objects(Transaction).filter(expensePredicate)
         let incomePredicate = NSPredicate(format: "created Between {%@, %@} AND type = %@", toMonthsAgo, monthsAgo, Constants.typeIncome)
