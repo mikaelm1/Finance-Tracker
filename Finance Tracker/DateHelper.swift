@@ -69,6 +69,10 @@ struct DateHelper {
         return NSCalendar.currentCalendar().dateByAddingUnit(.Month, value: -1, toDate: NSDate(), options: NSCalendarOptions())
     }
     
+    static func dateFromMonthsAgo(month: Int) -> NSDate? {
+        return NSCalendar.currentCalendar().dateByAddingUnit(.Month, value: month, toDate: NSDate(), options: NSCalendarOptions())
+    }
+    
     static func threeMonthsAgo() -> NSDate? {
         return NSCalendar.currentCalendar().dateByAddingUnit(.Month, value: -3, toDate: NSDate(), options: NSCalendarOptions())
     }

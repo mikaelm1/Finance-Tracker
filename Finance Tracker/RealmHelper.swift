@@ -14,6 +14,12 @@ struct RealmHelper {
     static let sharedInstance = RealmHelper()
     private let realm = try! Realm()
     
+    func loadAllTransactions() -> (expenses: Results<Transaction>, incomes: Results<Transaction>) {
+        let expenses = realm.objects(Transaction)
+        let incomes = realm.objects(Transaction)
+        return (expenses, incomes)
+    }
+    
     func loadTransactionsOneMonthAgo() -> (expenses: Results<Transaction>, incomes: Results<Transaction>) {
         let monthAgo = DateHelper.monthAgo()!
         let today = NSDate()
@@ -26,6 +32,20 @@ struct RealmHelper {
         //print("Transactions: \(transactions)")
         return (expenseTransactions, incomeTransactions)
         
+    }
+    
+    func loadTransactionsMonthsAgo(months: Int) -> (expenses: Results<Transaction>, incomes: Results<Transaction>)  {
+        guard let monthsAgo = DateHelper.dateFromMonthsAgo(-months), let toMonthsAgo = DateHelper.dateFromMonthsAgo(-months + 1) else {
+            return loadAllTransactions()
+        }
+        print("Months Ago: \(monthsAgo)")
+        print("ToMonthsAgo: \(toMonthsAgo)")
+        let expensePredicate = NSPredicate(format: "created Between {%@, %@} AND type = %@", monthsAgo, toMonthsAgo, Constants.typeExpense)
+        let expenseTransactions = realm.objects(Transaction).filter(expensePredicate)
+        let incomePredicate = NSPredicate(format: "created Between {%@, %@} AND type = %@", monthsAgo, toMonthsAgo, Constants.typeIncome)
+        let incomeTransactions = realm.objects(Transaction).filter(incomePredicate)
+        
+        return (expenseTransactions, incomeTransactions)
     }
     
     func loadTransactionsOneWeekAgo() -> (expenses: Results<Transaction>, incomes: Results<Transaction>) {

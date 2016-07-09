@@ -335,6 +335,21 @@ class StatsVC: UIViewController {
     
     func showTransactionsForSixMonths() {
         
+        var values = [Double]()
+        for i in 1...6 {
+            var tempTotal: Double = 0
+            let (expenses, incomes) = realmHelper.loadTransactionsMonthsAgo(i)
+            for exp in expenses {
+                tempTotal -= exp.price
+            }
+            for inc in incomes {
+                tempTotal += inc.price
+            }
+            values.append(tempTotal)
+        }
+        
+        var dataPoints = ["","","","","",""]
+        setChart(dataPoints, values: values.reverse())
     }
     
     func showTransactionsForOneYear() {
