@@ -20,14 +20,15 @@ class StatsVC: UIViewController {
         let l = LineChartView()
         l.delegate = self
         l.noDataText = "No data to display"
-        l.descriptionText = ""
+        l.descriptionText = "Select node for more info"
         l.backgroundColor = UIColor.rgb(222, green: 237, blue: 200, alpha: 1)
         l.legend.form = .Line
         l.xAxis.labelPosition = .Bottom
-        l.xAxis.drawGridLinesEnabled = true
+        l.xAxis.drawGridLinesEnabled = false
         l.pinchZoomEnabled = true
         l.leftAxis.drawGridLinesEnabled = false
         l.rightAxis.enabled = true
+        l.rightAxis.drawGridLinesEnabled = false
         return l
     }()
     
@@ -111,7 +112,7 @@ class StatsVC: UIViewController {
         //loadTransactions()
         //loadTransactionsWithinMonth()
         //loadAllTransactions()
-        showTransactionsForOneMonth()
+        showTransactionsForOneWeek()
 //        let selectedIndex = NSIndexPath(forItem: 1, inSection: 0)
 //        timeRangeView.collectionView.selectItemAtIndexPath(selectedIndex, animated: true, scrollPosition: .None)
         //showTransactionsOneWeekAgo()
@@ -119,27 +120,6 @@ class StatsVC: UIViewController {
     }
     
     // MARK: Chart setup
-    
-    func setData() {
-        let income1 = ChartDataEntry(value: 200, xIndex: 0)
-        let income2 = ChartDataEntry(value: 300, xIndex: 1)
-        let income3 = ChartDataEntry(value: 100, xIndex: 2)
-        let dataSet = LineChartDataSet(yVals: [income1, income2, income3], label: "Incomes")
-        dataSet.colors = [UIColor.greenColor()]
-        dataSet.circleColors = [UIColor.redColor()]
-        
-        let incomes = LineChartData(xVals: ["Mon", "Wed", "Thu"], dataSets: [dataSet])
-
-        lineChartView.animate(xAxisDuration: 1, yAxisDuration: 2, easingOption: .EaseInBounce)
-        lineChartView.xAxis.labelPosition = .Bottom
-        lineChartView.xAxis.axisMinValue = 0
-        lineChartView.pinchZoomEnabled = true
-        lineChartView.rightAxis.drawGridLinesEnabled = false
-        lineChartView.rightAxis.drawAxisLineEnabled = false
-        lineChartView.leftAxis.drawGridLinesEnabled = false
-        lineChartView.xAxis.drawGridLinesEnabled = false
-        lineChartView.data = incomes
-    }
     
     /// Single line chart
     func setChart(dataPoints: [String], values: [Double]) {
@@ -191,29 +171,13 @@ class StatsVC: UIViewController {
     // MARK: Helpers
     
     func setupViews() {
-        //view.addSubview(tableView)
-        //view.addSubview(seperatorView)
+
         view.addSubview(lineChartView)
-        //view.addSubview(choicesContainer)
-        //choicesContainer.addSubview(oneWeekButton)
-        //choicesContainer.addSubview(oneMonthButton)
         view.addSubview(timeRangeView)
-        
-        
-        //let tableHeight = view.frame.height * 0.4
-        //let chartHeight = view.frame.height - 120
-        //let buttonWidth = view.frame.width / 4 - 10
-        
-        //view.addConstraintsWithFormat("H:|[v0]|", views: tableView)
-        //view.addConstraintsWithFormat("H:|[v0]|", views: seperatorView)
         
         view.addConstraintsWithFormat("H:|[v0]|", views: lineChartView)
         view.addConstraintsWithFormat("H:|[v0]|", views: timeRangeView)
-        
-        //choicesContainer.addConstraintsWithFormat("H:|-5-[v0(\(buttonWidth))]-5-[v1(\(buttonWidth))]", views: oneWeekButton, oneMonthButton)
-        //view.addConstraintsWithFormat("V:|-60-[v0(\(chartHeight))]-0-[v1(1)]-1-[v2]-50-|", views: lineChartView, seperatorView, tableView)
-        //choicesContainer.addConstraintsWithFormat("V:|[v0]|", views: oneWeekButton)
-        //choicesContainer.addConstraintsWithFormat("V:|[v0]|", views: oneMonthButton)
+
         view.addConstraintsWithFormat("V:|-60-[v0][v1(50)]-50-|", views: lineChartView, timeRangeView)
     }
     
@@ -384,34 +348,6 @@ class StatsVC: UIViewController {
     
     func loadAllTransactions() {
         transactions = realm.objects(Transaction)
-    }
-    
-    func loadTransactions() {
-        let weekAgo = DateHelper.weeksAgo(1)!
-        let monthAgo = DateHelper.monthAgo()!
-        let today = NSDate()
-        print("Week ago: \(weekAgo)")
-        print("Today: \(today)")
-        let predicate = NSPredicate(format: "created BETWEEN {%@, %@}", monthAgo, today)
-        transactions = realm.objects(Transaction).filter(predicate)
-        print("Transactions: \(transactions)")
-        tableView.reloadData()
-        var data = [String]()
-        var incomes = [Double]()
-        var expenses = [Double]()
-        for item in transactions {
-            if item.type == Constants.typeIncome {
-                incomes.append(item.price)
-            } else {
-                expenses.append(item.price)
-            }
-            //let month = DateHelper.monthFromDate(item.created)
-            let day = DateHelper.dayOfWeekFromDate(item.created)
-            if !data.contains(day) {
-                data.append(day)
-            }
-        }
-        setChart(data, incomeValues: incomes, expenseValues: expenses)
     }
     
 }
