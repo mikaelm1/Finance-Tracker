@@ -356,7 +356,28 @@ class StatsVC: UIViewController {
     }
     
     func showTransactionsForOneYear() {
+        var values = [Double]()
+        var dataPoints = [String]()
+        for i in 0.stride(to: 11, by: 3) {
+            var tempTotal: Double = 0
+            let (expenses, incomes) = realmHelper.loadTransactionsMonthsAgo(i)
+            //print(expenses)
+            for exp in expenses {
+                tempTotal -= exp.price
+            }
+            for inc in incomes {
+                tempTotal += inc.price
+            }
+            values.append(tempTotal)
+            
+            if let stringDay = DateHelper.getStringDayFromMonthsAgo(i) {
+                dataPoints.append(stringDay)
+            } else {
+                dataPoints.append("")
+            }
+        }
         
+        setChart(dataPoints.reverse(), values: values.reverse())
     }
     
     func loadAllTransactions() {

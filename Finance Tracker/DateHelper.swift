@@ -12,6 +12,13 @@ struct DateHelper {
     
     //static let sharedInstance = DateHelper()
     
+    static func getStringDayFromMonthsAgo(months: Int) -> String? {
+        if let date = dateFromMonthsAgo(months) {
+            return getStringDayFromDate(date)
+        }
+        return nil 
+    }
+    
     static func getLastSixMonths() -> [String]? {
         var days = [NSDate]()
         let calendar = NSCalendar.currentCalendar()
@@ -86,8 +93,9 @@ struct DateHelper {
         return NSCalendar.currentCalendar().dateByAddingUnit(.Month, value: -1, toDate: NSDate(), options: NSCalendarOptions())
     }
     
+    /// 
     static func dateFromMonthsAgo(month: Int) -> NSDate? {
-        return NSCalendar.currentCalendar().dateByAddingUnit(.Month, value: month, toDate: NSDate(), options: NSCalendarOptions())
+        return NSCalendar.currentCalendar().dateByAddingUnit(.Month, value: -month, toDate: NSDate(), options: NSCalendarOptions())
     }
     
     static func threeMonthsAgo() -> NSDate? {
