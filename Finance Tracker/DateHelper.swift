@@ -12,6 +12,23 @@ struct DateHelper {
     
     //static let sharedInstance = DateHelper()
     
+    static func getLastSixMonths() -> [String]? {
+        var days = [NSDate]()
+        let calendar = NSCalendar.currentCalendar()
+        for i in 0...5 {
+            guard let day = calendar.dateByAddingUnit(.Month, value: -i, toDate: NSDate(), options: NSCalendarOptions()) else {
+                return nil
+            }
+            days.append(day)
+        }
+        var stringDays = [String]()
+        for day in days {
+            let stringDay = getStringDayFromDate(day)
+            stringDays.append(stringDay)
+        }
+        return stringDays
+    }
+    
     static func getLastSevenDays() -> [String]? {
         var days = [NSDate]()
         let calender = NSCalendar.currentCalendar()

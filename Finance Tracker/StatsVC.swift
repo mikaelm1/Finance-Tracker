@@ -349,6 +349,9 @@ class StatsVC: UIViewController {
         }
         
         var dataPoints = ["","","","","",""]
+        if let days = DateHelper.getLastSixMonths() {
+            dataPoints = days.reverse()
+        }
         setChart(dataPoints, values: values.reverse())
     }
     
