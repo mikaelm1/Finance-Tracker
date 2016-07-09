@@ -74,6 +74,7 @@ class AddItemVC: UIViewController {
         super.viewDidLoad()
         print("Realm: \(Realm.Configuration.defaultConfiguration.fileURL!)")
         view.backgroundColor = UIColor.whiteColor()
+        title = "Add Transaction"
         setupViews()
         
         // TODO: Temp. Remove.
@@ -81,8 +82,8 @@ class AddItemVC: UIViewController {
     }
     
     func createDummyData() {
-        let expenses = Array(count: 100000, repeatedValue: "Expense")
-        let incomes = Array(count: 100000, repeatedValue: "Income")
+        let expenses = Array(count: 1000, repeatedValue: "Expense")
+        let incomes = Array(count: 1000, repeatedValue: "Income")
         var expenseDates = [NSDate]()
         var incomeDates = [NSDate]()
         for _ in 0..<expenses.count {
@@ -198,6 +199,10 @@ class AddItemVC: UIViewController {
 
 extension AddItemVC: UITextFieldDelegate {
     
+    override func touchesEnded(touches: Set<UITouch>, withEvent event: UIEvent?) {
+        view.endEditing(true)
+    }
+    
     func textField(textField: UITextField, shouldChangeCharactersInRange range: NSRange, replacementString string: String) -> Bool {
 
         if textField.tag == Constants.priceFieldTag {
@@ -206,6 +211,10 @@ extension AddItemVC: UITextFieldDelegate {
             }
             return false
         }
+        return true
+    }
+    
+    func textFieldShouldReturn(textField: UITextField) -> Bool {
         return true
     }
     
