@@ -308,7 +308,7 @@ class StatsVC: UIViewController {
         var values = [Double]()
         print(days.count)
         
-        for i in (1...7).reverse() {
+        for i in 1...6 {
             var tempTotal: Double = 0
             let (exp, inc) = realmHelper.loadTransactionsDaysAgo(i)
             for expense in exp {
@@ -319,7 +319,7 @@ class StatsVC: UIViewController {
             }
             values.append(tempTotal)
         }
-        
+        values = values.reverse()
         let (expenses, incomes) = realmHelper.loadTransactionsOneDayAgo()
         var oneTotal: Double = 0
         for expense in expenses {
@@ -329,7 +329,7 @@ class StatsVC: UIViewController {
             oneTotal += income.price
         }
         values.append(oneTotal)
-        
+        print("Values count: \(values.count)")
         setChart(days.reverse(), values: values)
     }
     

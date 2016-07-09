@@ -38,8 +38,8 @@ struct RealmHelper {
         guard let monthsAgo = DateHelper.dateFromMonthsAgo(-months), let toMonthsAgo = DateHelper.dateFromMonthsAgo(-months + 1) else {
             return loadAllTransactions()
         }
-        print("Months Ago: \(monthsAgo)")
-        print("ToMonthsAgo: \(toMonthsAgo)")
+        //print("Months Ago: \(monthsAgo)")
+        //print("ToMonthsAgo: \(toMonthsAgo)")
         let expensePredicate = NSPredicate(format: "created Between {%@, %@} AND type = %@", monthsAgo, toMonthsAgo, Constants.typeExpense)
         let expenseTransactions = realm.objects(Transaction).filter(expensePredicate)
         let incomePredicate = NSPredicate(format: "created Between {%@, %@} AND type = %@", monthsAgo, toMonthsAgo, Constants.typeIncome)
@@ -77,7 +77,7 @@ struct RealmHelper {
     
     /// Get transactions for specific date: 1<=days<=7
     func loadTransactionsDaysAgo(days: Int) -> (expenses: Results<Transaction>, incomes: Results<Transaction>) {
-        guard let daysAgo = DateHelper.dateFromDaysAgo(days), let toDaysAgo = DateHelper.dateFromDaysAgo(days - 1) else {
+        guard let daysAgo = DateHelper.dateFromDaysAgo(days), let toDaysAgo = DateHelper.dateFromDaysAgo(days + 1) else {
             print("Didn't get the days")
             return loadTransactionsOneDayAgo()
         }
