@@ -12,7 +12,7 @@ import Charts
 
 class StatsVC: UIViewController {
     
-    //var transactions: Results<Transaction>!
+    var transactions = [Results<Transaction>!]()
     let realm = try! Realm()
     let realmHelper = RealmHelper.sharedInstance
     
@@ -30,12 +30,6 @@ class StatsVC: UIViewController {
         l.rightAxis.enabled = true
         l.rightAxis.drawGridLinesEnabled = false
         return l
-    }()
-    
-    let barChartView: BarChartView = {
-        let b = BarChartView()
-        b.noDataText = "No data to display"
-        return b
     }()
     
     let choicesContainer: UIView = {
@@ -57,26 +51,6 @@ class StatsVC: UIViewController {
         b.translatesAutoresizingMaskIntoConstraints = false
         b.setTitle("1M", forState: .Normal)
         return b
-    }()
-    
-    lazy var tableView: UITableView = {
-        let t = UITableView()
-        t.translatesAutoresizingMaskIntoConstraints = false
-        t.delegate = self
-        t.dataSource = self
-        t.registerClass(StatsCell.self, forCellReuseIdentifier: Constants.statsReuseId)
-        //t.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
-        t.estimatedRowHeight = 50
-        t.separatorStyle = .None
-        t.backgroundColor = UIColor.whiteColor()
-        return t
-    }()
-    
-    let seperatorView: UIView = {
-        let v = UIView()
-        v.translatesAutoresizingMaskIntoConstraints = false
-        v.backgroundColor = UIColor.darkGrayColor()
-        return v
     }()
     
     lazy var timeRangeView: TimeRangeContainer = {
@@ -268,7 +242,7 @@ class StatsVC: UIViewController {
     func showTransactionsForSixMonths() {
         
         var values = [Double]()
-        for i in 1...6 {
+        for i in 0...5 {
             var tempTotal: Double = 0
             let transactions = realmHelper.loadTransactionsMonthsAgo(i)
             for t in transactions {
@@ -316,31 +290,6 @@ class StatsVC: UIViewController {
     
     func loadAllTransactions() {
         //transactions = realm.objects(Transaction)
-    }
-    
-}
-
-extension StatsVC: UITableViewDelegate, UITableViewDataSource {
-    
-    func numberOfSectionsInTableView(tableView: UITableView) -> Int {
-        return 1
-    }
-    
-    func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 4
-    }
-    
-    func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        
-        //let transaction = transactions[indexPath.row]
-        let cell = tableView.dequeueReusableCellWithIdentifier(Constants.statsReuseId, forIndexPath: indexPath) as! StatsCell
-        cell.backgroundColor = UIColor.redColor()
-        //cell.configureCell(indexPath.row, transaction: transaction)
-        return cell
-    }
-    
-    func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
-        return 50
     }
     
 }

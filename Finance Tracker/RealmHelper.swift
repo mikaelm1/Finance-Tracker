@@ -34,8 +34,8 @@ struct RealmHelper {
         guard let monthsAgo = DateHelper.dateFromMonthsAgo(months), let toMonthsAgo = DateHelper.dateFromMonthsAgo(months + 1) else {
             return loadAllTransactions()
         }
-        //print("Months Ago: \(monthsAgo)")
-        //print("ToMonthsAgo: \(toMonthsAgo)")
+        print("Months Ago: \(monthsAgo)")
+        print("ToMonthsAgo: \(toMonthsAgo)")
         let predicate = NSPredicate(format: "created Between {%@, %@}", toMonthsAgo, monthsAgo)
         let transactions = realm.objects(Transaction).filter(predicate)
         return transactions
@@ -78,38 +78,11 @@ struct RealmHelper {
             print("Didn't get the dates")
             return realm.objects(Transaction)
         }
+        print("Weeks Ago: \(weeksAgo)")
+        print("To WeeksAgo: \(toWeeksAgo)")
         let predicate = NSPredicate(format: "created BETWEEN {%@, %@}", toWeeksAgo, weeksAgo)
         let transactions = realm.objects(Transaction).filter(predicate)
         return transactions
     }
-    
-//    func loadTransactionsTwoWeeksAgo() -> (expenses: Results<Transaction>, incomes: Results<Transaction>) {
-//        
-//        let twoWeeksAgo = DateHelper.weeksAgo(2)!
-//        let expensePredicate = NSPredicate(format: "created BETWEEN {%@, %@} AND type = %@", twoWeeksAgo, NSDate(), Constants.typeExpense)
-//        let expenseTransactions = realm.objects(Transaction).filter(expensePredicate)
-//        let incomePredicate = NSPredicate(format: "created BETWEEN {%@, %@} AND type = %@", twoWeeksAgo, NSDate(), Constants.typeIncome)
-//        let incomeTransactions = realm.objects(Transaction).filter(incomePredicate)
-//
-//        return (expenseTransactions, incomeTransactions)
-//    }
-    
-//    func loadTransactionsThreeWeeksAgo() -> (expenses: Results<Transaction>, incomes: Results<Transaction>) {
-//        let threeWeeksAgo = DateHelper.weeksAgo(3)!
-//        let expensePredicate = NSPredicate(format: "created BETWEEN {%@, %@} AND type = %@", threeWeeksAgo, NSDate(), Constants.typeExpense)
-//        let expenseTransactions = realm.objects(Transaction).filter(expensePredicate)
-//        let incomePredicate = NSPredicate(format: "created BETWEEN {%@, %@} AND type = %@", threeWeeksAgo, NSDate(), Constants.typeIncome)
-//        let incomeTransactions = realm.objects(Transaction).filter(incomePredicate)
-//        return (expenseTransactions, incomeTransactions)
-//    }
-//    
-//    func loadTransactionsFourWeeksAgo() -> (expenses: Results<Transaction>, incomes: Results<Transaction>) {
-//        let fourWeeksAgo = DateHelper.weeksAgo(4)!
-//        let expensePredicate = NSPredicate(format: "created BETWEEN {%@, %@} AND type = %@", fourWeeksAgo, NSDate(), Constants.typeExpense)
-//        let expenseTransactions = realm.objects(Transaction).filter(expensePredicate)
-//        let incomePredicate = NSPredicate(format: "created BETWEEN {%@, %@} AND type = %@", fourWeeksAgo, NSDate(), Constants.typeIncome)
-//        let incomeTransactions = realm.objects(Transaction).filter(incomePredicate)
-//        return (expenseTransactions, incomeTransactions)
-//    }
     
 }
