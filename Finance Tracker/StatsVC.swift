@@ -87,12 +87,10 @@ class StatsVC: UIViewController {
     
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
-        print("Stats viewWillAppear")
 
         showTransactionsForOneWeek()
         let selectedIndex = NSIndexPath(forItem: 0, inSection: 0)
         timeRangeView.collectionView.selectItemAtIndexPath(selectedIndex, animated: true, scrollPosition: .None)
-        //transactions = realm.objects(Transaction)
     }
     
     // MARK: Chart setup
@@ -298,7 +296,7 @@ class StatsVC: UIViewController {
 extension StatsVC: ChartViewDelegate {
     
     func chartValueSelected(chartView: ChartViewBase, entry: ChartDataEntry, dataSetIndex: Int, highlight: ChartHighlight) {
-//        print(entry)
+        print(entry)
 //        print(transactionsSelected[entry.xIndex], "\n\n")
 //        print(transactionsSelected.count)
         //print(transactionsSelected)

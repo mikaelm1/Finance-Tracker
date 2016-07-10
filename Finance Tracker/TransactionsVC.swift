@@ -14,10 +14,22 @@ class TransactionsVC: UIViewController {
     private let cellId = "cellId"
     var transactions: Results<Transaction>! = nil
     
+    lazy var dismissButton: UIButton = {
+        let b = UIButton(type: .System)
+        b.translatesAutoresizingMaskIntoConstraints = false
+        b.setTitle("X", forState: .Normal)
+        b.addTarget(self, action: #selector(dismissButtonTapped), forControlEvents: .TouchUpInside)
+        b.setTitleColor(UIColor.whiteColor(), forState: .Normal)
+        b.layer.borderColor = UIColor.whiteColor().CGColor
+        b.layer.borderWidth = 2
+        b.titleLabel?.font = UIFont.systemFontOfSize(25, weight: 300)
+        return b
+    }()
+    
     let navbarView: UIView = {
         let v = UIView()
         v.translatesAutoresizingMaskIntoConstraints = false
-        v.backgroundColor = UIColor.redColor()
+        v.backgroundColor = UIColor.rgb(172, green: 73, blue: 188, alpha: 1)
         return v
     }()
     
@@ -34,17 +46,29 @@ class TransactionsVC: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        print("TransactionsVC view did load")
         view.backgroundColor = UIColor.whiteColor()
         setupViews()
     }
     
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
+        collectionView.reloadData()
+    }
+    
+    override func preferredStatusBarStyle() -> UIStatusBarStyle {
+        return .LightContent
     }
     
     func setupViews() {
         view.addSubview(navbarView)
         view.addSubview(collectionView)
+        
+        navbarView.addSubview(dismissButton)
+        dismissButton.leadingAnchor.constraintEqualToAnchor(navbarView.leadingAnchor, constant: 16).active = true
+        dismissButton.bottomAnchor.constraintEqualToAnchor(navbarView.bottomAnchor, constant: -8).active = true
+        dismissButton.widthAnchor.constraintEqualToConstant(25).active = true
+        dismissButton.heightAnchor.constraintEqualToConstant(25).active = true
         
         navbarView.topAnchor.constraintEqualToAnchor(topLayoutGuide.topAnchor, constant: 0).active = true
         navbarView.leadingAnchor.constraintEqualToAnchor(view.leadingAnchor, constant: 0).active = true
@@ -55,6 +79,10 @@ class TransactionsVC: UIViewController {
         collectionView.leadingAnchor.constraintEqualToAnchor(view.leadingAnchor, constant: 0).active = true
         collectionView.trailingAnchor.constraintEqualToAnchor(view.trailingAnchor, constant: 0).active = true
         collectionView.bottomAnchor.constraintEqualToAnchor(bottomLayoutGuide.bottomAnchor, constant: 0).active = true
+    }
+    
+    func dismissButtonTapped(sender: UIButton) {
+        dismissViewControllerAnimated(true, completion: nil)
     }
 }
 
