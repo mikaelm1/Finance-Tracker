@@ -59,7 +59,7 @@ struct RealmHelper {
         if days == 0 {
             daysAgo = NSDate()
         }
-        let predicate = NSPredicate(format: "created Between {%@, %@}", daysAgo, toDaysAgo)
+        let predicate = NSPredicate(format: "created Between {%@, %@}", toDaysAgo, daysAgo)
         let transactions = realm.objects(Transaction).filter(predicate)
         return transactions
     }
