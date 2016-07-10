@@ -48,26 +48,17 @@ struct RealmHelper {
         return transactions
     }
     
-    /// Get transactions for today
-    func loadTransactionsOneDayAgo() -> Results<Transaction> {
-        guard let oneDayAgo = DateHelper.dateFromDaysAgo(1) else {
-            print("Didn't get the date")
-            return realm.objects(Transaction)
-        }
-        print("OneDayAgo: \(oneDayAgo)")
-        let predicate = NSPredicate(format: "created Between {%@, %@}", oneDayAgo, NSDate())
-        let transactions = realm.objects(Transaction).filter(predicate)
-        return transactions
-    }
-    
-    /// Get transactions for specific date: 1<=days<=7
+    /// Get transactions for specific date: 0<=days<=6
     func loadTransactionsDaysAgo(days: Int) -> Results<Transaction> {
-        guard let daysAgo = DateHelper.dateFromDaysAgo(days), let toDaysAgo = DateHelper.dateFromDaysAgo(days + 1) else {
+        guard var daysAgo = DateHelper.dateFromDaysAgo(days), let toDaysAgo = DateHelper.dateFromDaysAgo(days + 1) else {
             print("Didn't get the days")
-            return loadTransactionsOneDayAgo()
+            return realm.objects(Transaction)
         }
         print("DaysAgo: \(daysAgo)")
         print("ToDaysAgo: \(toDaysAgo)")
+        if days == 0 {
+            daysAgo = NSDate()
+        }
         let predicate = NSPredicate(format: "created Between {%@, %@}", daysAgo, toDaysAgo)
         let transactions = realm.objects(Transaction).filter(predicate)
         return transactions

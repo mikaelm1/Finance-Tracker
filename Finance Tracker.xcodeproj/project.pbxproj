@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		706C518F1D32C643000DE277 /* TransactionsVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 706C518E1D32C643000DE277 /* TransactionsVC.swift */; };
 		70A868891D2ADACB002DBE4E /* StatsCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70A868881D2ADACB002DBE4E /* StatsCell.swift */; };
 		70A8688D1D2C1472002DBE4E /* SweetAlert.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70A8688C1D2C1472002DBE4E /* SweetAlert.swift */; };
 		70A8688F1D2CAC87002DBE4E /* DateHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70A8688E1D2CAC87002DBE4E /* DateHelper.swift */; };
@@ -29,6 +30,7 @@
 
 /* Begin PBXFileReference section */
 		5A7C1BA5AED7DA711942B643 /* Pods-Finance Tracker.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Finance Tracker.release.xcconfig"; path = "Pods/Target Support Files/Pods-Finance Tracker/Pods-Finance Tracker.release.xcconfig"; sourceTree = "<group>"; };
+		706C518E1D32C643000DE277 /* TransactionsVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TransactionsVC.swift; sourceTree = "<group>"; };
 		70A868881D2ADACB002DBE4E /* StatsCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StatsCell.swift; sourceTree = "<group>"; };
 		70A8688C1D2C1472002DBE4E /* SweetAlert.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SweetAlert.swift; sourceTree = "<group>"; };
 		70A8688E1D2CAC87002DBE4E /* DateHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DateHelper.swift; sourceTree = "<group>"; };
@@ -113,6 +115,7 @@
 				70C481EB1D29ABB600410731 /* CustomTabBarController.swift */,
 				70C481ED1D29AC8600410731 /* StatsVC.swift */,
 				70C481EF1D29ACC600410731 /* AddItemVC.swift */,
+				706C518E1D32C643000DE277 /* TransactionsVC.swift */,
 			);
 			name = Controller;
 			sourceTree = "<group>";
@@ -294,6 +297,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				70C481F01D29ACC600410731 /* AddItemVC.swift in Sources */,
+				706C518F1D32C643000DE277 /* TransactionsVC.swift in Sources */,
 				70C481EE1D29AC8600410731 /* StatsVC.swift in Sources */,
 				70A8688D1D2C1472002DBE4E /* SweetAlert.swift in Sources */,
 				70C481D91D29A21D00410731 /* AppDelegate.swift in Sources */,

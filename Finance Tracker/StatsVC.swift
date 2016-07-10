@@ -12,9 +12,14 @@ import Charts
 
 class StatsVC: UIViewController {
     
-    var transactions = [Results<Transaction>!]()
+    var transactionsSelected = [Results<Transaction>!]()
     let realm = try! Realm()
     let realmHelper = RealmHelper.sharedInstance
+    
+    let transactionsController: TransactionsVC = {
+        let t = TransactionsVC()
+        return t
+    }()
     
     lazy var lineChartView: LineChartView = {
         let l = LineChartView()
@@ -171,7 +176,7 @@ class StatsVC: UIViewController {
     
     func showTransactionsForOneMonth() {
         var values = [Double]()
-        
+        transactionsSelected = [Results<Transaction>!]()
         for i in 0...3 {
             let transactions = realmHelper.loadTransactionsWeeksAgo(i)
             var tempTotal: Double = 0
@@ -183,6 +188,7 @@ class StatsVC: UIViewController {
                 }
             }
             values.append(tempTotal)
+            transactionsSelected.append(transactions)
         }
         
         var dates = [NSDate]()
@@ -211,8 +217,8 @@ class StatsVC: UIViewController {
             return
         }
         var values = [Double]()
-        
-        for i in 1...6 {
+        transactionsSelected = [Results<Transaction>!]()
+        for i in 0...6 {
             var tempTotal: Double = 0
             let transactions = realmHelper.loadTransactionsDaysAgo(i)
             for t in transactions {
@@ -223,25 +229,18 @@ class StatsVC: UIViewController {
                 }
             }
             values.append(tempTotal)
+            transactionsSelected.append(transactions)
         }
-        values = values.reverse()
-        let transactions = realmHelper.loadTransactionsOneDayAgo()
-        var oneTotal: Double = 0
-        for t in transactions {
-            if t.type == Constants.typeIncome {
-                oneTotal += t.price
-            } else {
-                oneTotal -= 1
-            }
-        }
-        values.append(oneTotal)
+
         print("Values count: \(values.count)")
-        setChart(days.reverse(), values: values)
+        print(days.count)
+        setChart(days.reverse(), values: values.reverse())
     }
     
     func showTransactionsForSixMonths() {
         
         var values = [Double]()
+        transactionsSelected = [Results<Transaction>!]()
         for i in 0...5 {
             var tempTotal: Double = 0
             let transactions = realmHelper.loadTransactionsMonthsAgo(i)
@@ -253,6 +252,7 @@ class StatsVC: UIViewController {
                 }
             }
             values.append(tempTotal)
+            transactionsSelected.append(transactions)
         }
         
         var dataPoints = ["","","","","",""]
@@ -264,11 +264,11 @@ class StatsVC: UIViewController {
     
     func showTransactionsForOneYear() {
         var values = [Double]()
+        transactionsSelected = [Results<Transaction>!]()
         var dataPoints = [String]()
         for i in 0.stride(to: 11, by: 3) {
             var tempTotal: Double = 0
             let transactions = realmHelper.loadTransactionsMonthsAgo(i)
-            //print(expenses)
             for t in transactions {
                 if t.type == Constants.typeIncome {
                     tempTotal += t.price
@@ -277,6 +277,7 @@ class StatsVC: UIViewController {
                 }
             }
             values.append(tempTotal)
+            transactionsSelected.append(transactions)
             
             if let stringDay = DateHelper.getStringDayFromMonthsAgo(i) {
                 dataPoints.append(stringDay)
@@ -298,6 +299,11 @@ extension StatsVC: ChartViewDelegate {
     
     func chartValueSelected(chartView: ChartViewBase, entry: ChartDataEntry, dataSetIndex: Int, highlight: ChartHighlight) {
         print(entry)
+        print(transactionsSelected[entry.xIndex], "\n\n")
+        print(transactionsSelected.count)
+        //print(transactionsSelected)
+        
+        presentViewController(transactionsController, animated: true, completion: nil)
     }
     
 }
