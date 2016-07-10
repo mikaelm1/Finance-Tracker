@@ -17,11 +17,11 @@ class TimeRangeCell: UICollectionViewCell {
         return l
     }()
     
-    override var highlighted: Bool {
-        didSet {
-            choiceLabel.textColor = highlighted ? Constants.purpleBarColor : UIColor.blackColor()
-        }
-    }
+//    override var highlighted: Bool {
+//        didSet {
+//            choiceLabel.textColor = highlighted ? Constants.purpleBarColor : UIColor.blackColor()
+//        }
+//    }
     
     override var selected: Bool {
         didSet {

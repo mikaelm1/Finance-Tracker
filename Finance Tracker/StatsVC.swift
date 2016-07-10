@@ -25,7 +25,7 @@ class StatsVC: UIViewController {
         let l = LineChartView()
         l.delegate = self
         l.noDataText = "No data to display"
-        l.descriptionText = "Select node for more info"
+        l.descriptionText = "Tap node for more info"
         l.backgroundColor = UIColor.rgb(222, green: 237, blue: 200, alpha: 1)
         l.legend.form = .Line
         l.xAxis.labelPosition = .Bottom
@@ -42,20 +42,6 @@ class StatsVC: UIViewController {
         v.translatesAutoresizingMaskIntoConstraints = false
         v.backgroundColor = UIColor.clearColor()
         return v
-    }()
-    
-    let oneWeekButton: TimeRangeButton = {
-        let b = TimeRangeButton()
-        b.setTitle("1W", forState: .Normal)
-        b.selected = true 
-        return b
-    }()
-    
-    let oneMonthButton: TimeRangeButton = {
-        let b = TimeRangeButton()
-        b.translatesAutoresizingMaskIntoConstraints = false
-        b.setTitle("1M", forState: .Normal)
-        return b
     }()
     
     lazy var timeRangeView: TimeRangeContainer = {
@@ -89,8 +75,7 @@ class StatsVC: UIViewController {
         super.viewWillAppear(animated)
 
         showTransactionsForOneWeek()
-        let selectedIndex = NSIndexPath(forItem: 0, inSection: 0)
-        timeRangeView.collectionView.selectItemAtIndexPath(selectedIndex, animated: true, scrollPosition: .None)
+        timeRangeView.moveSlidingBar(0)
     }
     
     // MARK: Chart setup

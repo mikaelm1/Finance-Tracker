@@ -72,6 +72,17 @@ class TimeRangeContainer: UIView {
         slidingBar.widthAnchor.constraintEqualToAnchor(self.widthAnchor, multiplier: 1/4).active = true
         slidingBar.heightAnchor.constraintEqualToConstant(5).active = true
     }
+    
+    func moveSlidingBar(index: Int) {
+        let selectedIndex = NSIndexPath(forItem: index, inSection: 0)
+        collectionView.selectItemAtIndexPath(selectedIndex, animated: true, scrollPosition: .None)
+        let lAnchor = CGFloat(index) * frame.width / 4
+        slidingBarLeftAnchor?.constant = lAnchor
+        
+        UIView.animateWithDuration(0.5, delay: 0, usingSpringWithDamping: 1, initialSpringVelocity: 1, options: .CurveEaseIn, animations: {
+            self.layoutIfNeeded()
+            }, completion: nil)
+    }
 
 }
 
@@ -92,12 +103,7 @@ extension TimeRangeContainer: UICollectionViewDelegate, UICollectionViewDataSour
         let cell = collectionView.dequeueReusableCellWithReuseIdentifier(cellId, forIndexPath: indexPath) as! TimeRangeCell
         cell.choiceLabel.frame.width
         
-        let lAnchor = CGFloat(indexPath.item) * frame.width / 4
-        slidingBarLeftAnchor?.constant = lAnchor
-        
-        UIView.animateWithDuration(0.5, delay: 0, usingSpringWithDamping: 1, initialSpringVelocity: 1, options: .CurveEaseIn, animations: {
-            self.layoutIfNeeded()
-            }, completion: nil)
+        moveSlidingBar(indexPath.item)
         
         let time = cellTitles[indexPath.row].rawValue
         statsViewController?.showTransactionsFor(time)
