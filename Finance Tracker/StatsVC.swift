@@ -285,7 +285,8 @@ extension StatsVC: ChartViewDelegate {
 //        print(transactionsSelected[entry.xIndex], "\n\n")
 //        print(transactionsSelected.count)
         //print(transactionsSelected)
-        transactionsController.transactions = transactionsSelected[entry.xIndex]
+        var tempTransactions = Array(transactionsSelected.reverse())
+        transactionsController.transactions = tempTransactions[entry.xIndex]
         
         presentViewController(transactionsController, animated: true, completion: nil)
     }
