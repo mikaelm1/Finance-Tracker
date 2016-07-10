@@ -8,13 +8,14 @@
 
 import UIKit
 
-class StatsCell: UITableViewCell {
+class TransactionCell: UICollectionViewCell {
     
     // MARK: Properties
     
     let nameLabel: UILabel = {
         let l = UILabel()
         l.translatesAutoresizingMaskIntoConstraints = false
+        l.text = "Name"
         l.adjustsFontSizeToFitWidth = true
         l.font = UIFont.systemFontOfSize(14)
         l.textColor = UIColor.darkGrayColor()
@@ -47,8 +48,8 @@ class StatsCell: UITableViewCell {
     
     // MARK: Life cycle
     
-    override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
-        super.init(style: style, reuseIdentifier: reuseIdentifier)
+    override init(frame: CGRect) {
+        super.init(frame: frame)
         setupViews()
     }
     

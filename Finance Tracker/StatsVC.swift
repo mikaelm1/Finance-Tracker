@@ -298,10 +298,11 @@ class StatsVC: UIViewController {
 extension StatsVC: ChartViewDelegate {
     
     func chartValueSelected(chartView: ChartViewBase, entry: ChartDataEntry, dataSetIndex: Int, highlight: ChartHighlight) {
-        print(entry)
-        print(transactionsSelected[entry.xIndex], "\n\n")
-        print(transactionsSelected.count)
+//        print(entry)
+//        print(transactionsSelected[entry.xIndex], "\n\n")
+//        print(transactionsSelected.count)
         //print(transactionsSelected)
+        transactionsController.transactions = transactionsSelected[entry.xIndex]
         
         presentViewController(transactionsController, animated: true, completion: nil)
     }
