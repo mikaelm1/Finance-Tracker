@@ -82,8 +82,8 @@ class AddItemVC: UIViewController {
     }
     
     func createDummyData() {
-        let expenses = Array(count: 1000, repeatedValue: "Expense")
-        let incomes = Array(count: 1000, repeatedValue: "Income")
+        let expenses = Array(count: 10000, repeatedValue: "Expense")
+        let incomes = Array(count: 10000, repeatedValue: "Income")
         var expenseDates = [NSDate]()
         var incomeDates = [NSDate]()
         for _ in 0..<expenses.count {

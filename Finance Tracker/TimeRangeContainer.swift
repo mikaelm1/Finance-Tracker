@@ -44,8 +44,8 @@ class TimeRangeContainer: UIView {
     override init(frame: CGRect) {
         super.init(frame: frame)
         setupViews()
-        let selectedItem = NSIndexPath(forItem: 0, inSection: 0)
-        collectionView.selectItemAtIndexPath(selectedItem, animated: true, scrollPosition: .None)
+//        let selectedItem = NSIndexPath(forItem: 0, inSection: 0)
+//        collectionView.selectItemAtIndexPath(selectedItem, animated: true, scrollPosition: .None)
         
         setupSlidingBar()
     }

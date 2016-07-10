@@ -12,7 +12,7 @@ import Charts
 
 class StatsVC: UIViewController {
     
-    var transactions: Results<Transaction>!
+    //var transactions: Results<Transaction>!
     let realm = try! Realm()
     let realmHelper = RealmHelper.sharedInstance
     
@@ -109,14 +109,11 @@ class StatsVC: UIViewController {
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
         print("Stats viewWillAppear")
-        //loadTransactions()
-        //loadTransactionsWithinMonth()
-        //loadAllTransactions()
+
         showTransactionsForOneWeek()
-//        let selectedIndex = NSIndexPath(forItem: 1, inSection: 0)
-//        timeRangeView.collectionView.selectItemAtIndexPath(selectedIndex, animated: true, scrollPosition: .None)
-        //showTransactionsOneWeekAgo()
-        transactions = realm.objects(Transaction)
+        let selectedIndex = NSIndexPath(forItem: 0, inSection: 0)
+        timeRangeView.collectionView.selectItemAtIndexPath(selectedIndex, animated: true, scrollPosition: .None)
+        //transactions = realm.objects(Transaction)
     }
     
     // MARK: Chart setup
@@ -199,51 +196,20 @@ class StatsVC: UIViewController {
     }
     
     func showTransactionsForOneMonth() {
-        let (oneExpenses, oneIncomes) = realmHelper.loadTransactionsOneWeekAgo()
-        var oneTotal: Double = 0
-        for expense in oneExpenses {
-            oneTotal -= expense.price
-        }
-        for income in oneIncomes {
-            oneTotal += income.price
-        }
-        print("One Total: \(oneTotal)")
+        var values = [Double]()
         
-        let (twoExpenses, twoIncomes) = realmHelper.loadTransactionsTwoWeeksAgo()
-        //print("Two expenses: \(twoExpenses)")
-        //print("Two Incomes: \(twoIncomes)")
-        var twoTotal: Double = 0
-        for expense in twoExpenses {
-            twoTotal -= expense.price
+        for i in 0...3 {
+            let transactions = realmHelper.loadTransactionsWeeksAgo(i)
+            var tempTotal: Double = 0
+            for t in transactions {
+                if t.type == Constants.typeIncome {
+                    tempTotal += t.price
+                } else {
+                    tempTotal -= t.price
+                }
+            }
+            values.append(tempTotal)
         }
-        for income in twoIncomes {
-            twoTotal += income.price
-        }
-        print("Two Total: \(twoTotal)")
-        
-        let (threeExpenses, threeIncomes) = realmHelper.loadTransactionsThreeWeeksAgo()
-        //print("Three expenses: \(threeExpenses.count)")
-        //print("Three incomes: \(threeIncomes.count)")
-        var threeTotal: Double = 0
-        for expense in threeExpenses {
-            threeTotal -= expense.price
-        }
-        for income in threeIncomes {
-            threeTotal += income.price
-        }
-        print("Three Total: \(threeTotal)")
-        
-        let (fourExpenses, fourIncomes) = realmHelper.loadTransactionsFourWeeksAgo()
-        print("Four expenses: \(fourExpenses.count)")
-        print("Four incomes: \(fourIncomes.count)")
-        var fourTotal: Double = 0
-        for expense in fourExpenses {
-            fourTotal -= expense.price
-        }
-        for income in fourIncomes {
-            fourTotal += income.price
-        }
-        print("Four Total: \(fourTotal)")
         
         var dates = [NSDate]()
         for i in 0...3 {
@@ -260,39 +226,39 @@ class StatsVC: UIViewController {
             dataPoints.append(str)
         }
         
-        let values = [oneTotal, twoTotal, threeTotal, fourTotal]
         setChart(dataPoints.reverse(), values: values.reverse())
         
     }
     
     func showTransactionsForOneWeek() {
+        
         guard let days = DateHelper.getLastSevenDays() else {
             print("Didn't get the days from date helper")
             return
         }
-        
         var values = [Double]()
-        print(days.count)
         
         for i in 1...6 {
             var tempTotal: Double = 0
-            let (exp, inc) = realmHelper.loadTransactionsDaysAgo(i)
-            for expense in exp {
-                tempTotal -= expense.price
-            }
-            for income in inc {
-                tempTotal += income.price
+            let transactions = realmHelper.loadTransactionsDaysAgo(i)
+            for t in transactions {
+                if t.type == Constants.typeIncome {
+                   tempTotal += t.price
+                } else {
+                    tempTotal -= t.price
+                }
             }
             values.append(tempTotal)
         }
         values = values.reverse()
-        let (expenses, incomes) = realmHelper.loadTransactionsOneDayAgo()
+        let transactions = realmHelper.loadTransactionsOneDayAgo()
         var oneTotal: Double = 0
-        for expense in expenses {
-            oneTotal -= expense.price
-        }
-        for income in incomes {
-            oneTotal += income.price
+        for t in transactions {
+            if t.type == Constants.typeIncome {
+                oneTotal += t.price
+            } else {
+                oneTotal -= 1
+            }
         }
         values.append(oneTotal)
         print("Values count: \(values.count)")
@@ -304,12 +270,13 @@ class StatsVC: UIViewController {
         var values = [Double]()
         for i in 1...6 {
             var tempTotal: Double = 0
-            let (expenses, incomes) = realmHelper.loadTransactionsMonthsAgo(i)
-            for exp in expenses {
-                tempTotal -= exp.price
-            }
-            for inc in incomes {
-                tempTotal += inc.price
+            let transactions = realmHelper.loadTransactionsMonthsAgo(i)
+            for t in transactions {
+                if t.type == Constants.typeIncome {
+                    tempTotal += t.price
+                } else {
+                    tempTotal -= t.price
+                }
             }
             values.append(tempTotal)
         }
@@ -326,13 +293,14 @@ class StatsVC: UIViewController {
         var dataPoints = [String]()
         for i in 0.stride(to: 11, by: 3) {
             var tempTotal: Double = 0
-            let (expenses, incomes) = realmHelper.loadTransactionsMonthsAgo(i)
+            let transactions = realmHelper.loadTransactionsMonthsAgo(i)
             //print(expenses)
-            for exp in expenses {
-                tempTotal -= exp.price
-            }
-            for inc in incomes {
-                tempTotal += inc.price
+            for t in transactions {
+                if t.type == Constants.typeIncome {
+                    tempTotal += t.price
+                } else {
+                    tempTotal -= t.price
+                }
             }
             values.append(tempTotal)
             
@@ -342,12 +310,12 @@ class StatsVC: UIViewController {
                 dataPoints.append("")
             }
         }
-        
-        setChart(dataPoints.reverse(), values: values.reverse())
+        dataPoints = dataPoints.reverse()
+        setChart(dataPoints, values: values.reverse())
     }
     
     func loadAllTransactions() {
-        transactions = realm.objects(Transaction)
+        //transactions = realm.objects(Transaction)
     }
     
 }
@@ -359,12 +327,12 @@ extension StatsVC: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return transactions.count
+        return 4
     }
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         
-        let transaction = transactions[indexPath.row]
+        //let transaction = transactions[indexPath.row]
         let cell = tableView.dequeueReusableCellWithIdentifier(Constants.statsReuseId, forIndexPath: indexPath) as! StatsCell
         cell.backgroundColor = UIColor.redColor()
         //cell.configureCell(indexPath.row, transaction: transaction)
@@ -381,8 +349,6 @@ extension StatsVC: ChartViewDelegate {
     
     func chartValueSelected(chartView: ChartViewBase, entry: ChartDataEntry, dataSetIndex: Int, highlight: ChartHighlight) {
         print(entry)
-        print(dataSetIndex)
-        print(highlight)
     }
     
 }
