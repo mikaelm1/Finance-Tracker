@@ -58,6 +58,7 @@ class StatsVC: UIViewController {
         print("Stats ViewDidLoad")
         automaticallyAdjustsScrollViewInsets = false
         view.backgroundColor = UIColor.rgb(222, green: 237, blue: 200, alpha: 1)
+        title = "Spending Trends"
         setupViews()
         
     }

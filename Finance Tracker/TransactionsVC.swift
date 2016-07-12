@@ -33,6 +33,15 @@ class TransactionsVC: UIViewController {
         return v
     }()
     
+    let transactionsCountLabel: UILabel = {
+        let l = UILabel()
+        l.translatesAutoresizingMaskIntoConstraints = false
+        l.textColor = UIColor.blackColor()
+        l.backgroundColor = UIColor.whiteColor()
+        l.textAlignment = .Center
+        return l
+    }()
+    
     lazy var collectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
         let cv = UICollectionView(frame: .zero, collectionViewLayout: layout)
@@ -54,6 +63,8 @@ class TransactionsVC: UIViewController {
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
         collectionView.reloadData()
+        
+        transactionsCountLabel.text = "Showing \(transactions.count) Transactions"
     }
     
     override func preferredStatusBarStyle() -> UIStatusBarStyle {
@@ -63,6 +74,12 @@ class TransactionsVC: UIViewController {
     func setupViews() {
         view.addSubview(navbarView)
         view.addSubview(collectionView)
+        
+        view.addSubview(transactionsCountLabel)
+        transactionsCountLabel.topAnchor.constraintEqualToAnchor(navbarView.bottomAnchor).active = true
+        transactionsCountLabel.leadingAnchor.constraintEqualToAnchor(view.leadingAnchor, constant: 0).active = true
+        transactionsCountLabel.trailingAnchor.constraintEqualToAnchor(view.trailingAnchor, constant: 0).active = true
+        transactionsCountLabel.heightAnchor.constraintEqualToConstant(50).active = true
         
         navbarView.addSubview(dismissButton)
         dismissButton.leadingAnchor.constraintEqualToAnchor(navbarView.leadingAnchor, constant: 16).active = true
@@ -75,7 +92,7 @@ class TransactionsVC: UIViewController {
         navbarView.heightAnchor.constraintEqualToConstant(60).active = true
         navbarView.trailingAnchor.constraintEqualToAnchor(view.trailingAnchor, constant: 0).active = true
         
-        collectionView.topAnchor.constraintEqualToAnchor(navbarView.bottomAnchor, constant: 0).active = true
+        collectionView.topAnchor.constraintEqualToAnchor(transactionsCountLabel.bottomAnchor, constant: 0).active = true
         collectionView.leadingAnchor.constraintEqualToAnchor(view.leadingAnchor, constant: 0).active = true
         collectionView.trailingAnchor.constraintEqualToAnchor(view.trailingAnchor, constant: 0).active = true
         collectionView.bottomAnchor.constraintEqualToAnchor(bottomLayoutGuide.bottomAnchor, constant: 0).active = true
@@ -96,7 +113,6 @@ extension TransactionsVC: UICollectionViewDelegate, UICollectionViewDelegateFlow
         
         let cell = collectionView.dequeueReusableCellWithReuseIdentifier(cellId, forIndexPath: indexPath) as! TransactionCell
         let transaction = transactions[indexPath.row]
-        print("Transaction in cell: \(transaction)")
         cell.configureCell(indexPath.row, transaction: transaction)
         return cell
     }
@@ -108,6 +124,7 @@ extension TransactionsVC: UICollectionViewDelegate, UICollectionViewDelegateFlow
     func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAtIndex section: Int) -> CGFloat {
         return 0
     }
+    
 }
 
 
