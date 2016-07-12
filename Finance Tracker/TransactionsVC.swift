@@ -112,6 +112,7 @@ extension TransactionsVC: UICollectionViewDelegate, UICollectionViewDelegateFlow
     func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
         
         let cell = collectionView.dequeueReusableCellWithReuseIdentifier(cellId, forIndexPath: indexPath) as! TransactionCell
+        cell.delegate = self 
         let transaction = transactions[indexPath.row]
         cell.configureCell(indexPath.row, transaction: transaction)
         return cell
@@ -124,9 +125,32 @@ extension TransactionsVC: UICollectionViewDelegate, UICollectionViewDelegateFlow
     func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAtIndex section: Int) -> CGFloat {
         return 0
     }
-    
+
 }
 
+extension TransactionsVC: TransactionCellDelegate {
+    
+    func didDeleteTransaction(transaction: Transaction) {
+        SweetAlert().showAlert("Permanent Action!", subTitle: "Are you sure you want to delete \(transaction.name)?", style: AlertStyle.Warning, buttonTitle: "Yes", buttonColor: Constants.expenseColor, otherButtonTitle: "No", otherButtonColor: Constants.incomeColor, action: { (isOtherButton) in
+            if isOtherButton {
+                // Yes tapped
+                self.deleteTransaction(transaction)
+            } else {
+                // No tapped
+            }
+        })
+    }
+    
+    private func deleteTransaction(transaction: Transaction) {
+        let realm = try! Realm()
+        try! realm.write({ 
+            realm.delete(transaction)
+            collectionView.reloadData()
+        })
+        
+    }
+    
+}
 
 
 

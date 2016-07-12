@@ -8,9 +8,16 @@
 
 import UIKit
 
+protocol TransactionCellDelegate {
+    func didDeleteTransaction(transaction: Transaction)
+}
+
 class TransactionCell: UICollectionViewCell {
     
     // MARK: Properties
+    
+    var delegate: TransactionCellDelegate? = nil
+    var transaction: Transaction!
     
     let nameLabel: UILabel = {
         let l = UILabel()
@@ -18,7 +25,7 @@ class TransactionCell: UICollectionViewCell {
         l.text = "Name"
         l.adjustsFontSizeToFitWidth = true
         l.font = UIFont.systemFontOfSize(14)
-        l.textColor = UIColor.darkGrayColor()
+        l.textColor = UIColor.blackColor()
         l.minimumScaleFactor = 0.7
         return l
     }()
@@ -28,8 +35,7 @@ class TransactionCell: UICollectionViewCell {
         l.translatesAutoresizingMaskIntoConstraints = false
         l.adjustsFontSizeToFitWidth = true
         l.font = UIFont.systemFontOfSize(10)
-        l.textColor = UIColor.lightGrayColor()
-        l.text = "Date"
+        l.textColor = UIColor.darkGrayColor()
         l.minimumScaleFactor = 0.7
         return l
     }()
@@ -41,9 +47,20 @@ class TransactionCell: UICollectionViewCell {
         l.font = UIFont.systemFontOfSize(20, weight: 200)
         l.textColor = Constants.incomeColor
         l.textAlignment = .Right
-        l.text = "$ 100"
         l.minimumScaleFactor = 0.7
         return l
+    }()
+    
+    lazy var deleteButton: UIButton = {
+        let b = UIButton(type: .System)
+        b.translatesAutoresizingMaskIntoConstraints = false
+        b.layer.cornerRadius = 17
+        b.layer.masksToBounds = true
+        b.setTitle("X", forState: .Normal)
+        b.setTitleColor(UIColor.whiteColor(), forState: .Normal)
+        b.backgroundColor = UIColor.clearColor()
+        b.addTarget(self, action: #selector(deleteTransaction), forControlEvents: .TouchUpInside)
+        return b
     }()
     
     // MARK: Life cycle
@@ -63,31 +80,44 @@ class TransactionCell: UICollectionViewCell {
         addSubview(nameLabel)
         addSubview(dateLabel)
         addSubview(priceLabel)
+        addSubview(deleteButton)
         
-        addConstraintsWithFormat("H:|-5-[v0]", views: nameLabel)
+        deleteButton.leadingAnchor.constraintEqualToAnchor(leadingAnchor, constant: 10).active = true
+        deleteButton.centerYAnchor.constraintEqualToAnchor(centerYAnchor, constant: 0).active = true
+        deleteButton.heightAnchor.constraintEqualToConstant(34).active = true
+        deleteButton.widthAnchor.constraintEqualToConstant(34).active = true
         
-        addConstraintsWithFormat("V:|-5-[v0]", views: nameLabel)
+        nameLabel.leadingAnchor.constraintEqualToAnchor(deleteButton.trailingAnchor, constant: 10).active = true
+        nameLabel.topAnchor.constraintEqualToAnchor(topAnchor, constant: 4).active = true
+        nameLabel.widthAnchor.constraintEqualToAnchor(widthAnchor, multiplier: 0.5).active = true
+        nameLabel.heightAnchor.constraintEqualToConstant(35).active = true
         
-        dateLabel.topAnchor.constraintEqualToAnchor(nameLabel.bottomAnchor, constant: 5).active = true
-        dateLabel.bottomAnchor.constraintEqualToAnchor(self.bottomAnchor, constant: -5).active = true
-        dateLabel.leftAnchor.constraintEqualToAnchor(self.leftAnchor, constant: 5).active = true
+        dateLabel.leadingAnchor.constraintEqualToAnchor(deleteButton.trailingAnchor, constant: 10).active = true
+        dateLabel.topAnchor.constraintEqualToAnchor(nameLabel.bottomAnchor, constant: 0).active = true
+        dateLabel.bottomAnchor.constraintEqualToAnchor(bottomAnchor, constant: 0).active = true
+        dateLabel.widthAnchor.constraintEqualToAnchor(nameLabel.widthAnchor, multiplier: 0.5).active = true
         
-        priceLabel.trailingAnchor.constraintEqualToAnchor(self.trailingAnchor, constant: -5).active = true
-        priceLabel.topAnchor.constraintEqualToAnchor(self.topAnchor, constant: 5).active = true
-        NSLayoutConstraint(item: priceLabel, attribute: .Width, relatedBy: .Equal, toItem: self, attribute: .Width, multiplier: 0.3, constant: 0).active = true
-        NSLayoutConstraint(item: priceLabel, attribute: .Height, relatedBy: .Equal, toItem: self, attribute: .Height, multiplier: 0.7, constant: 0).active = true
+        priceLabel.trailingAnchor.constraintEqualToAnchor(trailingAnchor, constant: -10).active = true
+        priceLabel.widthAnchor.constraintEqualToConstant(80).active = true
+        priceLabel.heightAnchor.constraintEqualToConstant(50).active = true
+        priceLabel.centerYAnchor.constraintEqualToAnchor(centerYAnchor, constant: 0).active = true
+        
     }
     
     func configureCell(indexPath: Int, transaction: Transaction) {
         
+        self.transaction = transaction
+        //deleteButton.layer.cornerRadius = deleteButton.frame.width / 2
         nameLabel.text = transaction.name
         let stringDate = stringFromDate(transaction.created)
         dateLabel.text = stringDate
         priceLabel.text = "$\(Int(transaction.price))"
         if transaction.type == Constants.typeExpense {
             priceLabel.textColor = Constants.expenseColor
+            deleteButton.backgroundColor = Constants.expenseColor
         } else {
             priceLabel.textColor = Constants.incomeColor
+            deleteButton.backgroundColor = Constants.incomeColor
         }
         
         if indexPath % 2 == 0 || indexPath == 0 {
@@ -104,12 +134,9 @@ class TransactionCell: UICollectionViewCell {
         let stringDate = formatter.stringFromDate(date)
         return stringDate
     }
+    
+    func deleteTransaction(sender: UIButton) {
+        delegate?.didDeleteTransaction(transaction)
+    }
 
 }
-
-
-
-
-
-
-

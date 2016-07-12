@@ -74,7 +74,7 @@ class AddItemVC: UIViewController {
         super.viewDidLoad()
         print("Realm: \(Realm.Configuration.defaultConfiguration.fileURL!)")
         view.backgroundColor = UIColor.whiteColor()
-        title = "Add Transaction"
+        navigationItem.title = "Add Transaction"
         setupViews()
         
         // TODO: Temp. Remove.
@@ -180,8 +180,7 @@ class AddItemVC: UIViewController {
             try! realm.write({
                 realm.add(item)
             })
-            // TODO: Change the button colors
-            SweetAlert().showAlert("Transaction Added!", subTitle: "Would you like to add another transaction?", style: AlertStyle.Success, buttonTitle: "Yes", buttonColor: UIColor.blueColor(), otherButtonTitle: "No", otherButtonColor: UIColor.redColor(), action: { (isOtherButton) in
+            SweetAlert().showAlert("Transaction Added!", subTitle: "Would you like to add another transaction?", style: AlertStyle.Success, buttonTitle: "Yes", buttonColor: Constants.expenseColor, otherButtonTitle: "No", otherButtonColor: Constants.incomeColor, action: { (isOtherButton) in
                 if isOtherButton {
                     // Yes tapped
                     self.clearFields()
