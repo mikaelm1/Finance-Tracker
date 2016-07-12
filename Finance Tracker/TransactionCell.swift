@@ -91,10 +91,10 @@ class TransactionCell: UICollectionViewCell {
         }
         
         if indexPath % 2 == 0 || indexPath == 0 {
-            backgroundColor = UIColor.lightGrayColor()
-            dateLabel.textColor = UIColor.whiteColor()
+            backgroundColor = UIColor.rgb(250, green: 250, blue: 250, alpha: 1)
         } else {
             backgroundColor = UIColor.whiteColor()
+            
         }
     }
     

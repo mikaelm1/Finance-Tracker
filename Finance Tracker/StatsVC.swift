@@ -29,6 +29,7 @@ class StatsVC: UIViewController {
         l.backgroundColor = UIColor.rgb(222, green: 237, blue: 200, alpha: 1)
         l.legend.form = .Line
         l.xAxis.labelPosition = .Bottom
+        l.xAxis.labelFont = UIFont.systemFontOfSize(12)
         l.xAxis.drawGridLinesEnabled = false
         l.pinchZoomEnabled = true
         l.leftAxis.drawGridLinesEnabled = false
@@ -59,8 +60,6 @@ class StatsVC: UIViewController {
         view.backgroundColor = UIColor.rgb(222, green: 237, blue: 200, alpha: 1)
         setupViews()
         
-        //TODO: Temporary. Remove!
-        navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .Done, target: self, action: #selector(deletaAllTransactions(_:)))
     }
     
     // TODO: Temp func
@@ -92,7 +91,10 @@ class StatsVC: UIViewController {
         dataSet.colors = [Constants.purpleBarColor]
         dataSet.circleRadius = 5
         dataSet.lineWidth = 3
+        dataSet.drawValuesEnabled = false
         dataSet.drawCircleHoleEnabled = false
+        dataSet.highlightEnabled = true
+        dataSet.highlightColor = UIColor.clearColor()
         dataSet.circleColors = [Constants.purpleBarColor]
         dataSet.cubicIntensity = 0.05
         
@@ -286,7 +288,7 @@ extension StatsVC: ChartViewDelegate {
 //        print(transactionsSelected.count)
         //print(transactionsSelected)
         var tempTransactions = Array(transactionsSelected.reverse())
-        transactionsController.transactions = tempTransactions[entry.xIndex]
+        transactionsController.transactions = tempTransactions[entry.xIndex].sorted("created", ascending: false)
         
         presentViewController(transactionsController, animated: true, completion: nil)
     }
