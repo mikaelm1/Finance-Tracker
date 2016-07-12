@@ -172,6 +172,8 @@ class AddItemVC: UIViewController {
     // MARK: Actions
     
     func addItemButtonTapped(sender: UIButton) {
+        itemPriceField.resignFirstResponder()
+        itemNameField.resignFirstResponder()
         let realm = try! Realm()
         if let name = getItemName(), let price = getItemPrice() {
             let item = Transaction(name: name, price: price, type: transactionType, date: nil)
