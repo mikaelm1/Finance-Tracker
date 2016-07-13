@@ -11,6 +11,8 @@ import RealmSwift
 
 class TransactionsVC: UIViewController {
     
+    // MARK: Properties
+    
     private let cellId = "cellId"
     var transactions: Results<Transaction>! = nil
     
@@ -60,6 +62,8 @@ class TransactionsVC: UIViewController {
         setupViews()
     }
     
+    // MARK: Life cycle
+    
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
         collectionView.reloadData()
@@ -70,6 +74,8 @@ class TransactionsVC: UIViewController {
     override func preferredStatusBarStyle() -> UIStatusBarStyle {
         return .LightContent
     }
+    
+    // MARK: Helpers
     
     func setupViews() {
         view.addSubview(navbarView)
@@ -97,6 +103,8 @@ class TransactionsVC: UIViewController {
         collectionView.trailingAnchor.constraintEqualToAnchor(view.trailingAnchor, constant: 0).active = true
         collectionView.bottomAnchor.constraintEqualToAnchor(bottomLayoutGuide.bottomAnchor, constant: 0).active = true
     }
+    
+    // MARK: Actions
     
     func dismissButtonTapped(sender: UIButton) {
         dismissViewControllerAnimated(true, completion: nil)
@@ -147,22 +155,6 @@ extension TransactionsVC: TransactionCellDelegate {
             realm.delete(transaction)
             collectionView.reloadData()
         })
-        
     }
     
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
